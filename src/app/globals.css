@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+/* ─── Brand palette — update these variables to rebrand the entire site ─── */
+@theme {
+  --color-brand-navy:        #162040;
+  --color-brand-navy-dark:   #0d1529;
+  --color-brand-navy-light:  #1e3068;
+  --color-brand-orange:      #f5a520;
+  --color-brand-orange-dark: #d4890e;
+  --color-brand-gold:        #ffd35f;
+  --color-brand-cream:       #fff8ee;
+  --color-brand-cream-dark:  #fef0d5;
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #ffffff;
+  color: #162040;
+}
+
+details > summary {
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
