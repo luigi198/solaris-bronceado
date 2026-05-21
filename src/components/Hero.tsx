@@ -47,7 +47,7 @@ export default function Hero() {
             </h1>
 
             <p className="text-lg md:text-lg text-white/80 leading-relaxed mb-8 max-w-2xl">
-              En SunSation, entendemos que el bronceado no es una cuestión de &quot;talla única&quot;. Cada piel tiene su propia identidad, sus necesidades y sus propios objetivos de belleza. Por eso, nos hemos consolidado como el centro de el centro de referencia absoluto en técnicas de bronceado, ofreciendo un abanico completo de opciones de vanguardia para que consigas ese tono dorado, saludable y radiante que buscas, durante todo el año. No importa si buscas un brillo sutil para un evento de fin de semana, una base duradera antes de tus vacaciones, o un tratamiento terapéutico para la piel; nuestro equipo de expertos diseñará el protocolo ideal para ti
+              En SunSation, entendemos que el bronceado no es una cuestión de &quot;talla única&quot;. Cada piel tiene su propia identidad, sus necesidades y sus propios objetivos de belleza. Por eso, nos hemos consolidado como el centro de el centro de referencia absoluto en técnicas de bronceado, ofreciendo un abanico completo de opciones de vanguardia para que consigas ese tono dorado, saludable y radiante que buscas, durante todo el año. <br/>No importa si buscas un brillo sutil para un evento de fin de semana, una base duradera antes de tus vacaciones, o un tratamiento terapéutico para la piel; nuestro equipo de expertos diseñará el protocolo ideal para ti
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">

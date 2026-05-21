@@ -4,7 +4,7 @@ const SERVICES = [
   {
     title: "Bronceado Brasileño",
     description:
-      "Técnica híbrida que combina cámara UV, activadores de melanina y pigmentos naturales para lograr un tono intenso, uniforme y de larga duración.",
+      "Técnica híbrida que combina cámara UV, activadores de melanina y pigmentos naturales para lograr un tono intenso, uniforme y de larga duración. Incluye diseño de bikini con cintas. ₡20.000 por sesión.",
     tag: "Más popular",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
@@ -21,15 +21,27 @@ const SERVICES = [
     ),
   },
   {
-    title: "Cama de Bronceado",
+    title: "Cámara de Bronceado",
     description:
-      "10 sesiones + acelerador Australian Gold + gafas protectoras. Un bronceado natural, uniforme y duradero, igual al obtenido con el sol.",
+      "10 sesiones + acelerador Australian Gold + gafas protectoras. Un bronceado natural, uniforme y duradero, igual al obtenido con el sol. Todos nuestros equipos son verticales. ₡50.000 el paquete.",
     tag: null,
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M2 4v16M2 8h18a2 2 0 012 2v6H2" />
         <path d="M6 8V6a2 2 0 012-2h8a2 2 0 012 2v2" />
         <line x1="2" y1="20" x2="22" y2="20" />
+      </svg>
+    ),
+  },
+  {
+    title: "Bronceado con Spray",
+    description:
+      "Bronceado instantáneo 100% natural a base de caña de azúcar, sin efectos secundarios — el más saludable del mercado. La aplicación tarda solo 5 minutos, cubre manchas, cicatrices, estrías, celulitis, capilares rotos y cualquier imperfección. Sellamos el resultado con cámara de colágeno; el color dura de 8 a 10 días. ₡20.000 por sesión.",
+    tag: "Instantáneo",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M3 3l3 9 9 3-9 3-3 9-3-9-9-3 9-3 3-9z" />
+        <path d="M17 3l1.5 4.5L23 9l-4.5 1.5L17 15l-1.5-4.5L11 9l4.5-1.5L17 3z" />
       </svg>
     ),
   },
@@ -56,31 +68,8 @@ const SERVICES = [
       </svg>
     ),
   },
-  {
-    title: "Paquete Solaris VIP",
-    description:
-      "Nuestro tratamiento más completo para lograr un bronceado intenso, uniforme y radiante desde la primera visita.",
-    tag: "Recomendado",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Mantenimiento & Retoques",
-    description:
-      "Sesiones personalizadas para mantener un tono uniforme y radiante durante todo el año.",
-    tag: null,
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M21 2v6h-6" />
-        <path d="M3 12a9 9 0 019-9 9 9 0 016.36 2.64L21 8" />
-        <path d="M3 22v-6h6" />
-        <path d="M21 12a9 9 0 01-9 9 9 9 0 01-6.36-2.64L3 16" />
-      </svg>
-    ),
-  },
+
+
 ] as const;
 
 export default function Services() {
@@ -108,13 +97,13 @@ export default function Services() {
         </div>
 
         <ul
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 list-none p-0 m-0"
+          className="flex flex-wrap justify-center gap-8 list-none p-0 m-0"
           role="list"
         >
           {SERVICES.map((service) => (
             <li
               key={service.title}
-              className="relative bg-white rounded-2xl border border-gray-100 p-8 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col"
+              className="relative bg-white rounded-2xl border border-gray-100 p-8 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.334rem)]"
             >
               {service.tag && (
                 <span className="absolute top-4 right-4 bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-full">
