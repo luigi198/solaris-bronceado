@@ -2,42 +2,42 @@ const FAQS = [
   {
     question: "¿Cuánto dura el bronceado brasileño?",
     answer:
-      "El bronceado brasileño dura entre 7 y 14 días dependiendo de tu tipo de piel y el cuidado posterior. Con hidratación diaria y evitando exfoliantes agresivos puedes extender la duración hasta 2 semanas.",
+      "El bronceado brasileño puede durar de 6 a 8 semanas. Utilizamos activadores de melanina, pigmentos naturales y tecnología híbrida para lograr un resultado intenso y duradero, incluso si visitas piscinas o la playa.",
   },
   {
-    question: "¿El bronceado sin sol es seguro para la piel?",
+    question: "¿El bronceado es seguro para la piel?",
     answer:
-      "Sí, completamente. Nuestros productos están certificados y libres de ingredientes dañinos. El bronceado brasileño utiliza DHA (dihidroxiacetona), una molécula naturalmente derivada de la caña de azúcar que reacciona solo con las capas superficiales de la piel sin afectar las capas más profundas.",
+      "Sí. En Solaris realizamos un diagnóstico de fototipo cutáneo para personalizar cada sesión según tu tipo de piel. Además, trabajamos con equipos certificados, protocolos de higiene rigurosos y productos de alta calidad para lograr un bronceado seguro y uniforme.",
   },
   {
     question: "¿Cuándo veré los resultados del bronceado?",
     answer:
-      "El bronceado brasileño comienza a desarrollarse entre 4 y 8 horas después de la aplicación, alcanzando su tono completo en 24 horas. Las sesiones en cama de bronceado muestran resultados de forma más gradual, generalmente visibles tras 2 o 3 sesiones.",
+      "Los resultados del bronceado brasileño son visibles desde las primeras sesiones. En el bronceado en cámara UV, el tono aparece de forma gradual y con 10 sesiones ya es notorio el cambio en la tonalidad de la piel.",
   },
   {
     question: "¿Necesito preparación previa antes de mi sesión?",
     answer:
-      "Recomendamos llegar con la piel limpia, sin maquillaje, perfume ni humectante. Idealmente, exfolíate 24 horas antes para maximizar los resultados y la duración. Si no tienes tiempo, ofrecemos el servicio de exfoliación preparatoria en nuestro salón.",
+      "Sí. Recomendamos venir con la piel limpia, exfoliada, depilada y sin cremas ni perfumes. También es ideal usar ropa holgada, preferiblemente oscura, y sandalias para mayor comodidad después de la sesión.",
   },
   {
     question: "¿El bronceado funciona igual para todo tipo de piel?",
     answer:
-      "Sí. Contamos con fórmulas adaptadas para pieles claras, medias y oscuras. En tu primera visita evaluamos tu tono de piel y seleccionamos la fórmula ideal para que el resultado sea el más natural y duradero posible.",
+      "Sí. En Solaris realizamos un diagnóstico de fototipo cutáneo para personalizar cada sesión según tu tipo y tono de piel, logrando un resultado uniforme, seguro y natural.",
   },
   {
     question: "¿Qué debo evitar después del bronceado?",
     answer:
-      "Las primeras 8 horas después de la aplicación evita el agua, el sudor y la ropa muy ajustada o de colores oscuros. Luego del primer contacto con el agua, mantén la piel hidratada diariamente y evita exfoliantes y productos con aceites minerales para prolongar el resultado.",
+      "Para mantener tu bronceado por más tiempo, recomendamos mantener la piel hidratada y seguir las indicaciones de nuestros especialistas según la técnica utilizada. En el caso del bronceado en cámara UV, el mantenimiento puede realizarse con sesiones periódicas o exposición solar moderada.",
   },
   {
     question: "¿Puedo broncearme si estoy embarazada?",
     answer:
-      "Los ingredientes del bronceado brasileño son seguros externamente, pero siempre recomendamos consultar con tu médico antes de cualquier tratamiento cosmético durante el embarazo. Tu seguridad y la de tu bebé son lo primero.",
+      "El bronceado instantáneo a base de caña de azúcar es una opción segura y apta para embarazadas. Sin embargo, siempre recomendamos consultar con tu médico antes de cualquier tratamiento estético durante el embarazo.",
   },
   {
     question: "¿Con qué frecuencia puedo ir al salón?",
     answer:
-      "Para el bronceado brasileño puedes repetirlo cada vez que se desvanezca, usualmente cada 1 o 2 semanas. Para las camas de bronceado recomendamos un máximo de 3 sesiones por semana. Ofrecemos planes de mantenimiento personalizados para clientes frecuentes.",
+      "Para el bronceado en cámara UV recomendamos 3 sesiones por semana hasta alcanzar el tono deseado. Luego, una sesión semanal o exposición solar moderada ayuda a mantener el resultado. En el caso del bronceado brasileño, la duración puede ser de 6 a 8 semanas dependiendo del cuidado y mantenimiento de la piel.",
   },
 ] as const;
 

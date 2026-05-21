@@ -1,4 +1,4 @@
-import { WA_LINK, PHONE, PHONE_LINK, ADDRESS, SCHEDULE } from "@/lib/constants";
+import { WA_LINK, PHONE, PHONE_LINK, ADDRESS_VENUE, ADDRESS_CITY, SCHEDULE } from "@/lib/constants";
 
 export default function ContactCTA() {
   return (
@@ -61,12 +61,15 @@ export default function ContactCTA() {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-brand-navy/70 text-sm">
-          <span className="flex items-center gap-2">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <span className="flex items-start gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5" aria-hidden="true">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
               <circle cx="12" cy="10" r="3" />
             </svg>
-            {ADDRESS}
+            <span className="flex flex-col leading-snug">
+              <span>{ADDRESS_VENUE}</span>
+              <span>{ADDRESS_CITY}</span>
+            </span>
           </span>
           <span className="hidden sm:block text-brand-navy/30">·</span>
           <span className="flex items-center gap-2">

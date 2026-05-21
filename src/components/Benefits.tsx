@@ -2,32 +2,32 @@ const BENEFITS = [
   {
     title: "Técnica brasileña certificada",
     description:
-      "Usamos la técnica original brasileña con productos premium importados y probados clínicamente.",
+      "Utilizamos pigmentos naturales y potenciadores de bronceado de alta calidad para lograr resultados intensos y uniformes.",
   },
   {
-    title: "Sin sol ni rayos UV",
+    title: "Tecnología híbrida avanzada",
     description:
-      "Cuida tu piel. Nuestro proceso de bronceado es 100% libre de radiación ultravioleta y sin exposición solar.",
+      "Combinamos luz UV, activadores de melanina y pigmentos naturales para lograr un bronceado intenso, uniforme y duradero.",
   },
   {
     title: "Resultados desde la primera sesión",
     description:
-      "Sal del salón con un tono dorado natural y uniforme. Sin manchas, sin zonas oscuras, sin rayones.",
+      "Obtén un tono más intenso y uniforme desde las primeras sesiones gracias a nuestra técnica híbrida y pigmentos naturales.",
   },
   {
     title: "Para todo tipo de piel",
     description:
-      "Fórmulas especializadas para pieles claras, medias y oscuras. Evaluamos tu tono antes de aplicar.",
+      "Realizamos un diagnóstico de fototipo cutáneo para personalizar cada sesión según tu tono y tipo de piel.",
   },
   {
-    title: "Personal certificado",
+    title: "Asesoría profesional especializada",
     description:
-      "Nuestro equipo está capacitado y certificado en técnicas de bronceado profesional. Estás en las mejores manos.",
+      "Nuestro equipo te guía en cada etapa para lograr un bronceado seguro, uniforme y adaptado a tu piel.",
   },
   {
     title: "Productos premium y seguros",
     description:
-      "Usamos productos hidratantes libres de parabenos y químicos dañinos, con certificación internacional.",
+      "Trabajamos con pigmentos naturales, aceleradores y productos de alta calidad para cuidar y realzar tu piel.",
   },
 ] as const;
 

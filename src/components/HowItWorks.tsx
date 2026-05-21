@@ -5,19 +5,19 @@ const STEPS = [
     step: "01",
     title: "Reserva tu cita",
     description:
-      "Escríbenos por WhatsApp o llámanos. Te ayudamos a elegir el servicio ideal para tu tipo de piel y tu objetivo.",
+      "Escríbenos por WhatsApp o llámanos. Evaluamos tu tipo de piel y te recomendamos la técnica ideal para lograr tu tono perfecto.",
   },
   {
     step: "02",
     title: "Ven a tu sesión",
     description:
-      "Llega 5 minutos antes. Te preparamos la piel y aplicamos el bronceado en 30 a 45 minutos en un ambiente relajante.",
+      "Te preparamos según tu técnica de bronceado y realizamos el procedimiento con asesoría profesional en un ambiente cómodo y seguro.",
   },
   {
     step: "03",
     title: "Luce tu bronceado",
     description:
-      "En pocas horas tendrás el tono dorado perfecto. Seguimos contigo con tips para que dure el mayor tiempo posible.",
+      "Disfruta un tono dorado uniforme y radiante con recomendaciones profesionales para prolongar tu resultado.",
   },
 ] as const;
 

@@ -3,6 +3,7 @@ import { Geist } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import { PHONE_INTL } from "@/lib/constants";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,7 +52,7 @@ const jsonLd = {
   description:
     "Salón de bronceado profesional en Costa Rica. Especialistas en bronceado brasileño, camas UV y tratamientos corporales.",
   url: "https://solarisbronceado.com",
-  telephone: "+506-0000-0000",
+  telephone: PHONE_INTL,
   address: {
     "@type": "PostalAddress",
     addressCountry: "CR",

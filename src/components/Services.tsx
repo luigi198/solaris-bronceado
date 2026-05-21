@@ -4,7 +4,7 @@ const SERVICES = [
   {
     title: "Bronceado Brasileño",
     description:
-      "La técnica más popular del mundo. Fórmula DHA que reacciona con la piel para un tono dorado, natural y uniforme. Sin sol ni rayos UV.",
+      "Técnica híbrida que combina cámara UV, activadores de melanina y pigmentos naturales para lograr un tono intenso, uniforme y de larga duración.",
     tag: "Más popular",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
@@ -23,7 +23,7 @@ const SERVICES = [
   {
     title: "Cama de Bronceado",
     description:
-      "Sesiones express en camas de última generación. Resultados visibles en 15-20 minutos con cuidado y protección profesional.",
+      "10 sesiones + acelerador Australian Gold + gafas protectoras. Un bronceado natural, uniforme y duradero, igual al obtenido con el sol.",
     tag: null,
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -36,7 +36,7 @@ const SERVICES = [
   {
     title: "Exfoliación Pre-Bronceado",
     description:
-      "Tratamiento preparatorio esencial. Elimina células muertas para que el bronceado penetre de manera uniforme y dure mucho más.",
+      "Prepara tu piel eliminando células muertas para lograr un bronceado más uniforme, intenso y duradero.",
     tag: null,
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -48,7 +48,7 @@ const SERVICES = [
   {
     title: "Hidratación Post-Bronceado",
     description:
-      "Sellamos y prolongamos tu resultado con tratamientos hidratantes premium. Tu bronceado puede durar hasta 2 semanas.",
+      "Tratamiento hidratante y sellado en cámara de colágeno para prolongar un bronceado uniforme y luminoso.",
     tag: null,
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -59,7 +59,7 @@ const SERVICES = [
   {
     title: "Paquete Solaris VIP",
     description:
-      "La experiencia completa: exfoliación + bronceado brasileño + hidratación. Todo en una sola visita para el resultado perfecto.",
+      "Nuestro tratamiento más completo para lograr un bronceado intenso, uniforme y radiante desde la primera visita.",
     tag: "Recomendado",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -70,7 +70,7 @@ const SERVICES = [
   {
     title: "Mantenimiento & Retoques",
     description:
-      "Planes de mantenimiento para quienes quieren bronceado todo el año. Sesiones periódicas adaptadas a tu tipo de piel.",
+      "Sesiones personalizadas para mantener un tono uniforme y radiante durante todo el año.",
     tag: null,
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
