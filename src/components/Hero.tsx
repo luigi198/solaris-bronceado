@@ -2,13 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { WA_LINK } from "@/lib/constants";
 
-const BADGES = [
-  "Resultados desde primeras sesiones",
-  "UV + pigmentos naturales",
-  "Tono intenso y uniforme",
-  "Duración hasta 8 semanas",
-] as const;
-
 export default function Hero() {
   return (
     <section
@@ -50,21 +43,12 @@ export default function Hero() {
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-6"
             >
               Solaris
-              <span className="block text-brand-gold">el arte del bronceado perfecto</span>
+              <span className="block text-brand-gold">El arte del bronceado perfecto</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-white/80 leading-relaxed mb-8 max-w-2xl">
-              La técnica brasileña más innovadora en Costa Rica. Obtén un bronceado intenso, uniforme y de larga duración con pigmentos naturales y activación profesional de melanina.
+            <p className="text-lg md:text-lg text-white/80 leading-relaxed mb-8 max-w-2xl">
+              En SunSation, entendemos que el bronceado no es una cuestión de &quot;talla única&quot;. Cada piel tiene su propia identidad, sus necesidades y sus propios objetivos de belleza. Por eso, nos hemos consolidado como el centro de el centro de referencia absoluto en técnicas de bronceado, ofreciendo un abanico completo de opciones de vanguardia para que consigas ese tono dorado, saludable y radiante que buscas, durante todo el año. No importa si buscas un brillo sutil para un evento de fin de semana, una base duradera antes de tus vacaciones, o un tratamiento terapéutico para la piel; nuestro equipo de expertos diseñará el protocolo ideal para ti
             </p>
-
-            <ul className="flex flex-wrap gap-x-6 gap-y-2 mb-10 list-none p-0 m-0" role="list">
-              {BADGES.map((badge) => (
-                <li key={badge} className="flex items-center gap-1.5 text-white/90 text-sm font-medium">
-                  <span className="text-brand-gold" aria-hidden="true">✓</span>
-                  {badge}
-                </li>
-              ))}
-            </ul>
 
             <div className="flex flex-col sm:flex-row gap-4">
               <a
