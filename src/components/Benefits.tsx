@@ -50,8 +50,8 @@ export default function Benefits() {
             La diferencia que sientes desde la primera visita
           </h2>
           <p className="text-slate-600 text-lg max-w-2xl mx-auto">
-            No somos un salón más. Somos especialistas en bronceado con la
-            mejor técnica, los mejores productos y el mejor resultado.
+            Somos especialistas en bronceado desde 1999, con la mejor técnica,
+            los mejores productos y el mejor resultado.
           </p>
         </div>
 
