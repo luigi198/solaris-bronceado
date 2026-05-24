@@ -1,6 +1,15 @@
+import type { ReactNode } from "react";
 import { WA_LINK } from "@/lib/constants";
 
-const SERVICES = [
+interface Service {
+  title: string;
+  description: string;
+  tag: string | null;
+  hideConsultBtn?: boolean;
+  icon: ReactNode;
+}
+
+const SERVICES: Service[] = [
   {
     title: "Bronceado Brasileño",
     description:
@@ -48,8 +57,9 @@ const SERVICES = [
   {
     title: "Exfoliación Pre-Bronceado",
     description:
-      "Prepara tu piel eliminando células muertas para lograr un bronceado más uniforme, intenso y duradero.",
+      "Recomendamos para todo tipo de sesión preparar tu piel con una exfoliación previa, eliminando células muertas para lograr un bronceado más uniforme, intenso y duradero.",
     tag: null,
+    hideConsultBtn: true,
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z" />
@@ -70,7 +80,7 @@ const SERVICES = [
   },
 
 
-] as const;
+];
 
 export default function Services() {
   return (
@@ -123,18 +133,20 @@ export default function Services() {
                 {service.description}
               </p>
 
-              <a
-                href={WA_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-brand-orange font-semibold hover:text-brand-orange-dark transition-colors text-sm"
-                aria-label={`Consultar sobre ${service.title}`}
-              >
-                Consultar precio
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </a>
+              {!service.hideConsultBtn && (
+                <a
+                  href={WA_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-brand-orange font-semibold hover:text-brand-orange-dark transition-colors text-sm"
+                  aria-label={`Consultas sobre ${service.title}`}
+                >
+                  Consultas
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              )}
             </li>
           ))}
         </ul>
