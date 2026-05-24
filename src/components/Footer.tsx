@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PHONE, PHONE_LINK, ADDRESS_VENUE, ADDRESS_CITY, SCHEDULE, SOCIAL, WA_LINK } from "@/lib/constants";
+import { PHONE, PHONE_LINK, PHONE_LOCAL, PHONE_LOCAL_LINK, ADDRESS_VENUE, ADDRESS_CITY, SCHEDULE, SOCIAL, WA_LINK } from "@/lib/constants";
 
 const SERVICE_LINKS = [
   "Bronceado Brasileño",
@@ -64,14 +64,14 @@ export default function Footer() {
                 </svg>
               </a>
 <a
-                href={SOCIAL.tiktok}
+                href={SOCIAL.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="TikTok de Solaris Bronceado"
+                aria-label="Facebook de Solaris Bronceado"
                 className="flex items-center justify-center w-9 h-9 rounded-full bg-white/10 hover:bg-brand-orange transition-colors duration-200"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.93a8.22 8.22 0 004.79 1.52V7.02a4.85 4.85 0 01-1.02-.33z" />
+                  <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.236 2.686.236v2.97H15.83c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z" />
                 </svg>
               </a>
             </div>
@@ -140,6 +140,14 @@ export default function Footer() {
                 </svg>
                 <a href={PHONE_LINK} className="hover:text-brand-gold transition-colors">
                   {PHONE}
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-brand-orange" aria-hidden="true">
+                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12 19.79 19.79 0 01.22 3.43 2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l1.46-1.46a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" />
+                </svg>
+                <a href={PHONE_LOCAL_LINK} className="hover:text-brand-gold transition-colors">
+                  {PHONE_LOCAL}
                 </a>
               </li>
               <li className="flex items-start gap-2">
