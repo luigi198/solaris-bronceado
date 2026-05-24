@@ -4,7 +4,7 @@ const SERVICES = [
   {
     title: "Bronceado Brasileño",
     description:
-      "Técnica híbrida que combina cámara UV, activadores de melanina y pigmentos naturales para lograr un tono intenso, uniforme y de larga duración. Incluye diseño de bikini con cintas. ₡20.000 por sesión.",
+      "Técnica híbrida que combina cámara UV, activadores de melanina y pigmentos naturales para lograr un tono intenso, uniforme y de larga duración. Incluye diseño de bikini con cintas. ₡20.000 por sesión. El número de sesiones requerido varía dependiendo de su tipo de piel; en general recomendamos un mínimo de 3 sesiones.",
     tag: "Más popular",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
