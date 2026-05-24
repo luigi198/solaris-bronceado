@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
 import { WA_LINK } from "@/lib/constants";
 
 interface Service {
@@ -7,6 +8,7 @@ interface Service {
   tag: string | null;
   hideConsultBtn?: boolean;
   icon: ReactNode;
+  image?: string;
 }
 
 const SERVICES: Service[] = [
@@ -15,6 +17,7 @@ const SERVICES: Service[] = [
     description:
       "Técnica híbrida que combina cámara UV, activadores de melanina y pigmentos naturales para lograr un tono intenso, uniforme y de larga duración. Incluye diseño de bikini con cintas. ₡20.000 por sesión. El número de sesiones requerido varía dependiendo de su tipo de piel; en general recomendamos un mínimo de 3 sesiones.",
     tag: "Más popular",
+    image: "/brasileño.jpeg",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
         <circle cx="12" cy="12" r="5" />
@@ -34,6 +37,7 @@ const SERVICES: Service[] = [
     description:
       "Ofrecemos un paquete que incluye 10 sesiones + acelerador Australian Gold + gafas protectoras para un bronceado natural, uniforme y duradero, igual al obtenido con el sol. Todos nuestros equipos son verticales. Costo del paquete: ₡50.000.",
     tag: null,
+    image: "/camara.jpeg",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M2 4v16M2 8h18a2 2 0 012 2v6H2" />
@@ -47,6 +51,7 @@ const SERVICES: Service[] = [
     description:
       "Bronceado instantáneo 100% natural a base de caña de azúcar, sin efectos secundarios — el más saludable del mercado. La aplicación tarda solo 5 minutos, cubre manchas, cicatrices, estrías, celulitis, capilares rotos y cualquier imperfección. Sellamos el resultado con cámara de colágeno; el color dura de 8 a 10 días. ₡20.000 por sesión.",
     tag: "Instantáneo",
+    image: "/spraytan.jpeg",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M3 3l3 9 9 3-9 3-3 9-3-9-9-3 9-3 3-9z" />
@@ -129,6 +134,18 @@ export default function Services() {
                 <span className="absolute top-4 right-4 bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-full">
                   {service.tag}
                 </span>
+              )}
+
+              {service.image && (
+                <div className="relative w-full h-44 rounded-xl overflow-hidden mb-6 -mx-0">
+                  <Image
+                    src={service.image}
+                    alt={`${service.title} - Solaris Bronceado`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </div>
               )}
 
               <div className="flex items-center justify-center w-14 h-14 bg-brand-cream rounded-xl text-brand-orange mb-6">
