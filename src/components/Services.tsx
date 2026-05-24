@@ -9,6 +9,7 @@ interface Service {
   hideConsultBtn?: boolean;
   icon: ReactNode;
   image?: string;
+  imagePosition?: string;
 }
 
 const SERVICES: Service[] = [
@@ -18,6 +19,7 @@ const SERVICES: Service[] = [
       "Técnica híbrida que combina cámara UV, activadores de melanina y pigmentos naturales para lograr un tono intenso, uniforme y de larga duración. Incluye diseño de bikini con cintas. ₡20.000 por sesión. El número de sesiones requerido varía dependiendo de su tipo de piel; en general recomendamos un mínimo de 3 sesiones.",
     tag: "Más popular",
     image: "/brasileño.jpeg",
+    imagePosition: "bottom",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
         <circle cx="12" cy="12" r="5" />
@@ -143,6 +145,7 @@ export default function Services() {
                     alt={`${service.title} - Solaris Bronceado`}
                     fill
                     className="object-cover"
+                    style={service.imagePosition ? { objectPosition: service.imagePosition } : undefined}
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 </div>
