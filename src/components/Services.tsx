@@ -131,7 +131,7 @@ export default function Services() {
               className="relative bg-white rounded-2xl border border-gray-100 p-8 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.334rem)]"
             >
               {service.tag && (
-                <span className="absolute top-4 right-4 bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-full">
+                <span className="absolute top-4 right-4 z-[1] bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-full">
                   {service.tag}
                 </span>
               )}
