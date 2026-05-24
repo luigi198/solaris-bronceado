@@ -70,7 +70,7 @@ const SERVICES: Service[] = [
   {
     title: "Hidratación Post-Bronceado",
     description:
-      "Tratamiento hidratante y sellado en cámara de colágeno para prolongar un bronceado uniforme y luminoso.",
+      "Recomendamos que posteriormente a su sesión de bronceado utilice cremas hidratantes para mantener su piel saludable, con brillo y suavidad natural. Por ello, le ofrecemos una amplia línea de productos para el cuidado de la piel.",
     tag: null,
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
