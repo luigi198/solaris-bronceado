@@ -3,11 +3,11 @@ import { PHONE, PHONE_LINK, PHONE_LOCAL, PHONE_LOCAL_LINK, ADDRESS_VENUE, ADDRES
 
 const SERVICE_LINKS = [
   "Bronceado Brasileño",
-  "Cama de Bronceado",
+  "Cámara de Bronceado",
+  "Bronceado con Spray",
   "Exfoliación Pre-Bronceado",
   "Hidratación Post-Bronceado",
-  "Paquete Solaris VIP",
-  "Mantenimiento & Retoques",
+  "Salón",
 ] as const;
 
 const NAV_LINKS = [
