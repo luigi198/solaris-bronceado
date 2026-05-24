@@ -12,7 +12,7 @@ const FAQS = [
   {
     question: "¿Cuándo veré los resultados del bronceado?",
     answer:
-      "Los resultados del bronceado brasileño son visibles desde las primeras sesiones. En el bronceado en cámara UV, el tono aparece de forma gradual y con 10 sesiones ya es notorio el cambio en la tonalidad de la piel.",
+      "Los resultados del bronceado brasileño son visibles desde las primeras sesiones. En el bronceado en cámara UV, el tono aparece de forma gradual y con 10 sesiones ya es notorio el cambio en la tonalidad de la piel. Con el bronceado spray los resultados serán inmediatos.",
   },
   {
     question: "¿Necesito preparación previa antes de mi sesión?",
