@@ -7,7 +7,7 @@ export default function ContactCTA() {
       className="py-20 md:py-28 relative overflow-hidden"
       style={{
         background:
-          "linear-gradient(135deg, #f5a520 0%, #ffd35f 50%, #f5a520 100%)",
+          "linear-gradient(135deg, var(--color-brand-orange) 0%, var(--color-brand-gold) 50%, var(--color-brand-orange) 100%)",
       }}
       aria-labelledby="contacto-heading"
     >

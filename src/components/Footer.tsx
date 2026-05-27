@@ -21,15 +21,15 @@ const NAV_LINKS = [
 function SunLogoIcon() {
   return (
     <svg width="36" height="25" viewBox="0 0 44 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <line x1="22" y1="0" x2="22" y2="7" stroke="#f5a520" strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="30" y1="2" x2="27" y2="8" stroke="#f5a520" strokeWidth="2" strokeLinecap="round" />
-      <line x1="37" y1="8" x2="31.5" y2="12" stroke="#f5a520" strokeWidth="2" strokeLinecap="round" />
-      <line x1="40" y1="17" x2="34" y2="17.5" stroke="#f5a520" strokeWidth="2" strokeLinecap="round" />
-      <line x1="14" y1="2" x2="17" y2="8" stroke="#f5a520" strokeWidth="2" strokeLinecap="round" />
-      <line x1="7" y1="8" x2="12.5" y2="12" stroke="#f5a520" strokeWidth="2" strokeLinecap="round" />
-      <line x1="4" y1="17" x2="10" y2="17.5" stroke="#f5a520" strokeWidth="2" strokeLinecap="round" />
-      <path d="M 9,24 A 13,13 0 0,1 35,24" fill="#ffd35f" />
-      <line x1="2" y1="24" x2="42" y2="24" stroke="#f5a520" strokeWidth="2" />
+      <line x1="22" y1="0" x2="22" y2="7" style={{ stroke: "var(--color-brand-orange)" }} strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="30" y1="2" x2="27" y2="8" style={{ stroke: "var(--color-brand-orange)" }} strokeWidth="2" strokeLinecap="round" />
+      <line x1="37" y1="8" x2="31.5" y2="12" style={{ stroke: "var(--color-brand-orange)" }} strokeWidth="2" strokeLinecap="round" />
+      <line x1="40" y1="17" x2="34" y2="17.5" style={{ stroke: "var(--color-brand-orange)" }} strokeWidth="2" strokeLinecap="round" />
+      <line x1="14" y1="2" x2="17" y2="8" style={{ stroke: "var(--color-brand-orange)" }} strokeWidth="2" strokeLinecap="round" />
+      <line x1="7" y1="8" x2="12.5" y2="12" style={{ stroke: "var(--color-brand-orange)" }} strokeWidth="2" strokeLinecap="round" />
+      <line x1="4" y1="17" x2="10" y2="17.5" style={{ stroke: "var(--color-brand-orange)" }} strokeWidth="2" strokeLinecap="round" />
+      <path d="M 9,24 A 13,13 0 0,1 35,24" style={{ fill: "var(--color-brand-gold)" }} />
+      <line x1="2" y1="24" x2="42" y2="24" style={{ stroke: "var(--color-brand-orange)" }} strokeWidth="2" />
     </svg>
   );
 }

@@ -8,7 +8,7 @@ export default function Hero() {
       className="relative min-h-screen flex items-center pt-20 overflow-hidden"
       style={{
         background:
-          "radial-gradient(ellipse at 75% 15%, rgba(245,165,32,0.22) 0%, transparent 55%), linear-gradient(135deg, #0d1529 0%, #162040 50%, #1e3068 100%)",
+          "radial-gradient(ellipse at 75% 15%, rgba(245,165,32,0.22) 0%, transparent 55%), linear-gradient(135deg, #183d82 0%, #1e4a99 50%, #2a5cb5 100%)",
       }}
       aria-labelledby="hero-heading"
     >
@@ -17,7 +17,7 @@ export default function Hero() {
         className="absolute top-4 right-0 md:-right-16 w-80 h-80 md:w-[560px] md:h-[560px] rounded-full pointer-events-none opacity-25"
         style={{
           background:
-            "radial-gradient(circle, #ffd35f 0%, #f5a520 35%, transparent 70%)",
+            "radial-gradient(circle, var(--color-brand-gold) 0%, var(--color-brand-orange) 35%, transparent 70%)",
         }}
         aria-hidden="true"
       />
@@ -88,7 +88,7 @@ export default function Hero() {
             {/* Decorative glow behind image */}
             <div
               className="absolute -inset-4 rounded-3xl opacity-20 blur-2xl pointer-events-none -z-10"
-              style={{ background: "radial-gradient(circle, #f5a520 0%, transparent 70%)" }}
+              style={{ background: "radial-gradient(circle, var(--color-brand-orange) 0%, transparent 70%)" }}
             />
           </div>
         </div>
