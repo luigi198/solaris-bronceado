@@ -8,7 +8,7 @@ export default function Hero() {
       className="relative min-h-screen flex items-center pt-20 overflow-hidden"
       style={{
         background:
-          "radial-gradient(ellipse at 75% 15%, rgba(245,165,32,0.22) 0%, transparent 55%), linear-gradient(135deg, #183d82 0%, #1e4a99 50%, #2a5cb5 100%)",
+          "radial-gradient(ellipse at 75% 15%, color-mix(in srgb, var(--color-brand-orange) 22%, transparent) 0%, transparent 55%), linear-gradient(135deg, var(--color-brand-navy-dark) 0%, var(--color-brand-navy) 50%, var(--color-brand-navy-light) 100%)",
       }}
       aria-labelledby="hero-heading"
     >
