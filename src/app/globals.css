@@ -2,9 +2,9 @@
 
 /* ─── Brand palette — update these variables to rebrand the entire site ─── */
 @theme {
-  --color-brand-navy:        #162040;
-  --color-brand-navy-dark:   #0d1529;
-  --color-brand-navy-light:  #1e3068;
+  --color-brand-navy:        #1e4a99;
+  --color-brand-navy-dark:   #183d82;
+  --color-brand-navy-light:  #2a5cb5;
   --color-brand-orange:      #f5a520;
   --color-brand-orange-dark: #d4890e;
   --color-brand-gold:        #ffd35f;
@@ -22,7 +22,7 @@ html {
 
 body {
   background-color: #ffffff;
-  color: #162040;
+  color: #1e4a99;
 }
 
 details > summary {
