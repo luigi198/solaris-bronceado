@@ -4,4 +4,5 @@ module.exports = {
   generateRobotsTxt: true,
   changefreq: "weekly",
   priority: 1.0,
+  autoLastmod: true,
 };
