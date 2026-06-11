@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://solarisbronceado.com
+
+# Sitemaps
+Sitemap: https://solarisbronceado.com/sitemap.xml
