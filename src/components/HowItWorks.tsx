@@ -1,4 +1,7 @@
+"use client";
+
 import { WA_LINK } from "@/lib/constants";
+import { trackEvent } from "@/lib/analytics";
 
 const STEPS = [
   {
@@ -71,6 +74,7 @@ export default function HowItWorks() {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold px-8 py-4 rounded-full text-lg transition-colors duration-200 shadow-md"
+            onClick={() => trackEvent("whatsapp_click")}
           >
             Comenzar ahora
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">

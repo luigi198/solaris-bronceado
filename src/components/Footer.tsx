@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { PHONE, PHONE_LINK, PHONE_LOCAL, PHONE_LOCAL_LINK, ADDRESS_VENUE, ADDRESS_CITY, SCHEDULE, SOCIAL, WA_LINK } from "@/lib/constants";
+import { trackEvent } from "@/lib/analytics";
 
 const SERVICE_LINKS = [
   "Bronceado Brasileño",
@@ -91,6 +94,7 @@ export default function Footer() {
                     rel="noopener noreferrer"
                     className="text-white/60 hover:text-brand-gold text-sm transition-colors duration-200"
                     aria-label={`Consultar sobre ${service}`}
+                    onClick={() => trackEvent("whatsapp_click")}
                   >
                     {service}
                   </a>
