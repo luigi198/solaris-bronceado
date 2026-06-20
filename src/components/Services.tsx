@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import { WA_LINK } from "@/lib/constants";
+import TrackedLink from "@/components/TrackedLink";
 
 interface Service {
   title: string;
@@ -164,18 +165,19 @@ export default function Services() {
               </p>
 
               {!service.hideConsultBtn && (
-                <a
+                <TrackedLink
                   href={WA_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-brand-orange font-semibold hover:text-brand-orange-dark transition-colors text-sm"
                   aria-label={`Consultas sobre ${service.title}`}
+                  tracking={{ event: "whatsapp_click", source: "services" }}
                 >
                   Consultas
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
-                </a>
+                </TrackedLink>
               )}
             </li>
           ))}
