@@ -64,7 +64,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             className="hidden md:flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold px-5 py-2.5 rounded-full transition-colors duration-200"
-            onClick={() => trackEvent("whatsapp_click")}
+            onClick={() => { trackEvent("whatsapp_click"); trackEvent("cta_click"); }}
           >
             <WhatsAppIcon />
             Reservar cita
@@ -115,7 +115,7 @@ export default function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 bg-brand-orange text-white font-semibold px-5 py-3 rounded-full"
-              onClick={() => trackEvent("whatsapp_click")}
+              onClick={() => { trackEvent("whatsapp_click"); trackEvent("cta_click"); }}
             >
               <WhatsAppIcon />
               Reservar cita por WhatsApp

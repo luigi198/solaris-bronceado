@@ -171,7 +171,10 @@ export default function Services() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-brand-orange font-semibold hover:text-brand-orange-dark transition-colors text-sm"
                   aria-label={`Consultas sobre ${service.title}`}
-                  tracking={{ event: "whatsapp_click", source: "services" }}
+                  tracking={[
+                    { event: "whatsapp_click", source: "services" },
+                    { event: "cta_click", source: "services" },
+                  ]}
                 >
                   Consultas
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
