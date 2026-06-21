@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import MobileBookingBar from "@/components/MobileBookingBar";
 import { PHONE_INTL } from "@/lib/constants";
 
 const geistSans = Geist({
@@ -85,6 +86,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col font-sans">
         <Navbar />
         {children}
+        <MobileBookingBar />
         <WhatsAppFloat />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-01W27QZDQL"

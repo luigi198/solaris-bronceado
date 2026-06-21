@@ -10,7 +10,7 @@ export default function WhatsAppFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contáctanos por WhatsApp"
-      className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25d366] hover:bg-[#1ebe5d] text-white rounded-full shadow-lg transition-colors duration-200 motion-safe:hover:scale-110 motion-safe:transition-transform"
+      className="fixed bottom-20 right-6 md:bottom-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25d366] hover:bg-[#1ebe5d] text-white rounded-full shadow-lg transition-colors duration-200 motion-safe:hover:scale-110 motion-safe:transition-transform"
       onClick={() => trackWhatsAppClick("float_button")}
     >
       <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

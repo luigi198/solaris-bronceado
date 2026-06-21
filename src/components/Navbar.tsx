@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { WA_LINK } from "@/lib/constants";
+import { WA_LINK, PHONE, PHONE_LINK } from "@/lib/constants";
 import { trackEvent } from "@/lib/analytics";
 
 const NAV_LINKS = [
@@ -58,6 +58,17 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
+
+          <a
+            href={PHONE_LINK}
+            className="hidden md:flex items-center gap-1.5 text-brand-navy/70 hover:text-brand-orange text-sm font-medium transition-colors duration-200"
+            onClick={() => trackEvent("phone_click")}
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12 19.79 19.79 0 01.22 3.43 2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l1.46-1.46a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" />
+            </svg>
+            {PHONE}
+          </a>
 
           <a
             href={WA_LINK}
@@ -119,6 +130,17 @@ export default function Navbar() {
             >
               <WhatsAppIcon />
               Reservar cita por WhatsApp
+            </a>
+
+            <a
+              href={PHONE_LINK}
+              className="flex items-center justify-center gap-2 border-2 border-brand-navy/20 text-brand-navy font-semibold px-5 py-3 rounded-full hover:border-brand-orange hover:text-brand-orange transition-colors duration-200"
+              onClick={() => trackEvent("phone_click")}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12 19.79 19.79 0 01.22 3.43 2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l1.46-1.46a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" />
+              </svg>
+              {PHONE}
             </a>
           </div>
         )}

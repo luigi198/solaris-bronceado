@@ -1,5 +1,5 @@
 export const WA_NUMBER = "50686436657";
-export const WA_MESSAGE = "Hola,%20quiero%20informaci%C3%B3n%20sobre%20bronceado";
+export const WA_MESSAGE = "Hola,%20quiero%20reservar%20una%20cita";
 export const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${WA_MESSAGE}`;
 
 export const PHONE = "+506 8643-6657";

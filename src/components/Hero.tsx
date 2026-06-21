@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { WA_LINK } from "@/lib/constants";
+import { WA_LINK, PHONE, PHONE_LINK } from "@/lib/constants";
 import TrackedLink from "@/components/TrackedLink";
 import HeroDescription from "@/components/HeroDescription";
 
@@ -50,7 +50,7 @@ export default function Hero() {
 
             <HeroDescription />
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 mb-4">
               <TrackedLink
                 href={WA_LINK}
                 target="_blank"
@@ -74,6 +74,19 @@ export default function Hero() {
                 Ver servicios
               </Link>
             </div>
+            <p className="text-white/60 text-sm flex items-center gap-1.5">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12 19.79 19.79 0 01.22 3.43 2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l1.46-1.46a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" />
+              </svg>
+              O llámanos:{" "}
+              <TrackedLink
+                href={PHONE_LINK}
+                className="text-brand-gold hover:text-white transition-colors font-medium"
+                tracking={{ event: "phone_click" }}
+              >
+                {PHONE}
+              </TrackedLink>
+            </p>
           </div>
 
           {/* Hero image */}
