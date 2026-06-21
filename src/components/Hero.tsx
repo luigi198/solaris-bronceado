@@ -29,25 +29,25 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 w-full">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-32 w-full">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
           {/* Text content */}
           <div className="flex-1 min-w-0">
             {/* Eyebrow badge */}
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-brand-gold/30 text-brand-gold px-4 py-1.5 rounded-full text-sm font-medium mb-8">
+            <div className="inline-flex items-center gap-2 bg-white/10 border border-brand-gold/30 text-brand-gold px-4 py-1.5 rounded-full text-sm font-medium mb-4 md:mb-8">
               <span aria-hidden="true">✦</span>
               <span>Bronceado profesional en Costa Rica</span>
             </div>
 
             <h1
               id="hero-heading"
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-6"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-4 md:mb-6"
             >
               Solaris
               <span className="block text-brand-gold">El arte del bronceado perfecto</span>
             </h1>
 
-            <p className="text-lg md:text-lg text-white/80 leading-relaxed mb-8 max-w-2xl">
+            <p className="text-lg md:text-lg text-white/80 leading-relaxed mb-6 md:mb-8 max-w-2xl line-clamp-3 md:line-clamp-none">
               En Solaris, entendemos que el bronceado no es una cuestión de &quot;talla única&quot;. Cada piel tiene su propia identidad, sus necesidades y sus propios objetivos de belleza. Por eso, nos hemos consolidado como el centro de el centro de referencia absoluto en técnicas de bronceado, ofreciendo un abanico completo de opciones de vanguardia para que consigas ese tono dorado, saludable y radiante que buscas, durante todo el año. <br/>No importa si buscas un brillo sutil para un evento de fin de semana, una base duradera antes de tus vacaciones, o un tratamiento terapéutico para la piel; nuestro equipo de expertos diseñará el protocolo ideal para ti
             </p>
 
