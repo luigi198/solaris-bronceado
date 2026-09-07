@@ -6,11 +6,13 @@ import Image from "next/image";
 import { WA_LINK, PHONE, PHONE_LINK } from "@/lib/constants";
 import { trackEvent } from "@/lib/analytics";
 
+// Root-relative so the section anchors also resolve from other routes (e.g. /blog).
 const NAV_LINKS = [
-  { href: "#servicios", label: "Servicios" },
-  { href: "#nosotros", label: "Nosotros" },
-  { href: "#faq", label: "Preguntas" },
-  { href: "#contacto", label: "Contacto" },
+  { href: "/#servicios", label: "Servicios" },
+  { href: "/#nosotros", label: "Nosotros" },
+  { href: "/#faq", label: "Preguntas" },
+  { href: "/#contacto", label: "Contacto" },
+  { href: "/blog", label: "Blog" },
 ] as const;
 
 function WhatsAppIcon() {

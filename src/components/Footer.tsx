@@ -13,12 +13,14 @@ const SERVICE_LINKS = [
   "Salón",
 ] as const;
 
+// Root-relative so the section anchors also resolve from other routes (e.g. /blog).
 const NAV_LINKS = [
-  { href: "#servicios", label: "Servicios" },
-  { href: "#nosotros", label: "Nosotros" },
-  { href: "#proceso", label: "Proceso" },
-  { href: "#faq", label: "Preguntas frecuentes" },
-  { href: "#contacto", label: "Contacto" },
+  { href: "/#servicios", label: "Servicios" },
+  { href: "/#nosotros", label: "Nosotros" },
+  { href: "/#proceso", label: "Proceso" },
+  { href: "/#faq", label: "Preguntas frecuentes" },
+  { href: "/#contacto", label: "Contacto" },
+  { href: "/blog", label: "Blog" },
 ] as const;
 
 function SunLogoIcon() {
