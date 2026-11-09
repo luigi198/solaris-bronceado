@@ -19,6 +19,7 @@ npm run start     # Serve production build
 npm run lint      # Run ESLint
 npm test          # Vitest (uses an in-memory mongod; first run downloads it)
 npm run setup:admin  # Generate admin credential env vars (interactive)
+npm run blog:draft -- .blog-drafts/<slug>  # Upload an AI-prepared article + cover as a draft
 ```
 
 `npm run build` prerenders `/blog` from MongoDB, so it needs `MONGODB_URI`. Locally: `docker run -d --name solaris-mongo -p 127.0.0.1:27018:27017 mongo:8` and copy `.env.example` to `.env.local`.
@@ -64,6 +65,8 @@ Self-hosted blog: MongoDB for posts, S3 for images, a single admin whose credent
 - Markdown renders with `skipHtml`; only images from `NEXT_PUBLIC_IMAGE_BASE_URL` render. JSON-LD goes through `<JsonLd>` (escapes `<`).
 - Uploads are sniffed by magic bytes and re-encoded with sharp; keys are server-generated.
 - Deleting a post deletes only images no other post references (`PostService.delete`). The app's IAM user must never get `s3:DeleteObjectVersion`: bucket versioning is what keeps deletes recoverable.
+
+**AI drafts:** the `blog-draft` skill (`.claude/skills/blog-draft/`) writes `.blog-drafts/<slug>/article.md` (gitignored), the user adds `cover.*`, and `scripts/blog-draft.ts` uploads it via the container's services — always as a draft, validated against publish rules before any upload. It reads credentials from `.env.blog-draft` and runs on plain Node through `scripts/lib/aliasHooks.ts` (resolves `@/` and extensionless imports).
 
 **Infra:** AWS resources (S3 bucket, upload-only IAM user) are Terraform in `infra/` — see `infra/README.md`. Always run `aws sts get-caller-identity --profile solaris` before plan/apply.
 

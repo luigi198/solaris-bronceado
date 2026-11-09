@@ -10,7 +10,8 @@
     "lint": "eslint",
     "prepare": "husky",
     "test": "vitest run",
-    "setup:admin": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/setup-admin.ts"
+    "setup:admin": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/setup-admin.ts",
+    "blog:draft": "node --env-file=.env.blog-draft --experimental-transform-types --conditions=react-server --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=ExperimentalWarning --import ./scripts/lib/aliasHooks.ts scripts/blog-draft.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1163.0",
