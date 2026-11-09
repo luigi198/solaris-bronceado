@@ -5,6 +5,7 @@ import { SessionService } from "@/lib/auth/session";
 import { TrustedDeviceTokens } from "@/lib/auth/trustedDevice";
 import { PostService } from "@/lib/blog/postService";
 import type { Clock } from "@/lib/contracts/auth";
+import type { ImageRemover } from "@/lib/contracts/images";
 import { ImageService } from "@/lib/images/imageService";
 import { MongoAttemptStore, MongoSessionStore, MongoTotpStepStore } from "@/lib/storage/mongo/authStores";
 import { getDb } from "@/lib/storage/mongo/client";
@@ -25,8 +26,13 @@ function db() {
   return getDb(MONGODB_URI, MONGODB_DB);
 }
 
+/** Resolved on first use so public pages never need the S3 credentials. */
+const lazyImageRemover: ImageRemover = {
+  removeImages: (urls) => getImageService().removeImages(urls),
+};
+
 export async function getPostService(): Promise<PostService> {
-  return new PostService(new MongoPostRepository(await db()), clock, IMAGE_BASE_URL);
+  return new PostService(new MongoPostRepository(await db()), clock, IMAGE_BASE_URL, lazyImageRemover);
 }
 
 export async function getSessionService(): Promise<SessionService> {
@@ -56,5 +62,6 @@ export function getImageService(): ImageService {
       secretAccessKey: env.S3_SECRET_ACCESS_KEY,
       publicBaseUrl: env.NEXT_PUBLIC_IMAGE_BASE_URL,
     }),
+    env.NEXT_PUBLIC_IMAGE_BASE_URL,
   );
 }

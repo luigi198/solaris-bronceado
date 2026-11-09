@@ -58,4 +58,6 @@ export interface PostRepository {
   /** Newest published posts without a total count. */
   listRecentPublished(limit: number): Promise<PostSummary[]>;
   listPublishedSlugs(): Promise<Array<Pick<Post, "slug" | "updatedAt">>>;
+  /** Posts (drafts included) whose cover or body mentions any of `urls`. */
+  findReferencingImages(urls: readonly string[]): Promise<Array<Pick<Post, "coverImage" | "contentMarkdown">>>;
 }

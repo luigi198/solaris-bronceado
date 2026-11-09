@@ -20,6 +20,12 @@ variable "region" {
   default     = "us-east-1"
 }
 
+variable "deleted_image_retention_days" {
+  description = "Days a deleted blog image stays recoverable (as a non-public old version) before S3 purges it."
+  type        = number
+  default     = 30
+}
+
 variable "bucket_name" {
   description = "Globally unique bucket name. It appears in public image URLs."
   type        = string

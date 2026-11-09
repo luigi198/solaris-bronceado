@@ -136,6 +136,22 @@ export class MongoPostRepository implements PostRepository {
     return docs.map(toSummary);
   }
 
+  /**
+   * One query for all candidate URLs: exact match on the cover, substring
+   * (escaped regex alternation) on the body. Scans posts, which is fine for a
+   * single-author blog and only runs on delete.
+   */
+  async findReferencingImages(urls: readonly string[]): Promise<Array<Pick<Post, "coverImage" | "contentMarkdown">>> {
+    if (urls.length === 0) return [];
+    const anyUrl = urls.map((u) => u.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|");
+    return this.posts
+      .find(
+        { $or: [{ "coverImage.url": { $in: [...urls] } }, { contentMarkdown: { $regex: anyUrl } }] },
+        { projection: { _id: 0, coverImage: 1, contentMarkdown: 1 } },
+      )
+      .toArray();
+  }
+
   async listPublishedSlugs(): Promise<Array<Pick<Post, "slug" | "updatedAt">>> {
     return this.posts
       .find(PUBLISHED, { projection: { _id: 0, slug: 1, updatedAt: 1 } })

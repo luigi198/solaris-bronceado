@@ -97,6 +97,7 @@ Posts are written in Markdown (typically AI-generated) in the admin editor at `/
 - Publishing requires a 120–160 character description, a cover image with alt text and at least 300 characters of content. Drafts can be incomplete.
 - Changing a published post's slug permanently redirects the old URL.
 - Pages are cached (ISR) and refreshed immediately when a post is saved, unpublished or deleted.
+- Deleting a post also deletes its cover and inline images, except any still used by another post or draft. Deleted images stop being public immediately and stay recoverable in S3 for 30 days.
 
 Each post gets canonical URL, Open Graph/Twitter tags, `BlogPosting` and breadcrumb JSON-LD, and an entry in `/blog/sitemap.xml` (listed in `robots.txt`).
 
@@ -109,7 +110,7 @@ There are no user accounts: a single admin is defined entirely by environment va
 - **Sessions** are random opaque tokens stored only as hashes, with idle and absolute expiry, in `HttpOnly`, `Secure`, `SameSite=Strict`, `__Host-` cookies. "Cerrar todas las sesiones" revokes every session.
 - **Authorization** is enforced in every admin page and Server Action, not just in the proxy.
 - **Content:** Markdown HTML is stripped, JSON-LD is escaped, and uploads are type-checked by content and re-encoded (which strips metadata such as GPS) before reaching S3.
-- **Infrastructure:** the bucket only allows public reads under `blog/`, and the app's IAM user can only create new objects there — it cannot read, list, overwrite or delete.
+- **Infrastructure:** the bucket only allows public reads under `blog/`. The app's IAM user can only create new objects there (never overwrite) and delete them; it cannot read, list or remove old versions. The bucket is versioned, so nothing the app — or a leaked key — does is irreversible within the 30-day recovery window.
 - **Logs** are structured JSON; IPs are pseudonymized and credentials, tokens and cookies are redacted.
 
 If you find a security issue, please report it privately to the maintainers rather than opening a public issue.

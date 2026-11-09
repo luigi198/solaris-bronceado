@@ -1,5 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
+import { FailingDeleteStorage, MemoryStorage } from "../../../test/memoryStorage";
 import { fakeClock, setupTestDb } from "../../../test/mongo";
+import { ImageService } from "@/lib/images/imageService";
 import { NotFoundError, ValidationError } from "@/lib/errors";
 import { MongoPostRepository } from "@/lib/storage/mongo/postRepository";
 import { PostService } from "./postService";
@@ -33,11 +35,20 @@ async function fieldErrors(promise: Promise<unknown>): Promise<Record<string, st
 describe("PostService", () => {
   let service: PostService;
   let clock: ReturnType<typeof fakeClock>;
+  let storage: MemoryStorage;
+
+  const serviceWith = (s: MemoryStorage) =>
+    new PostService(new MongoPostRepository(getDb()), clock.now, IMAGE_BASE, new ImageService(s, IMAGE_BASE));
 
   beforeEach(() => {
     clock = fakeClock();
-    service = new PostService(new MongoPostRepository(getDb()), clock.now, IMAGE_BASE);
+    storage = new MemoryStorage(IMAGE_BASE);
+    service = serviceWith(storage);
   });
+
+  /** Stores an object and returns its public URL, like a real upload. */
+  const stored = (key: string, s: MemoryStorage = storage) => s.put(key, Buffer.from("x"), "image/webp");
+  const coverWith = (url: string) => ({ url, alt: "Piel bronceada", width: 1200, height: 800 });
 
   it("publishes a valid post and finds it by slug", async () => {
     const post = await service.create(input(), "publish");
@@ -119,6 +130,38 @@ describe("PostService", () => {
     expect(await service.findPublished(post.slug)).toEqual({ kind: "missing" });
     await service.delete(post.id);
     await expect(service.getById(post.id)).rejects.toBeInstanceOf(NotFoundError);
+  });
+
+  it("deletes the post's cover and body images from storage", async () => {
+    const cover = await stored("blog/cover-1200x800.webp");
+    const inline = await stored("blog/inline-640x480.webp");
+    const post = await service.create(
+      input({ coverImage: coverWith(cover), contentMarkdown: `${"Texto ".repeat(60)}\n\n![Foto](${inline})` }),
+      "publish",
+    );
+    await service.delete(post.id);
+    expect(storage.objects.size).toBe(0);
+  });
+
+  it("keeps images that another post or draft still uses", async () => {
+    const shared = await stored("blog/shared-1200x800.webp");
+    const own = await stored("blog/own-640x480.webp");
+    const post = await service.create(
+      input({ coverImage: coverWith(shared), contentMarkdown: `${"Texto ".repeat(60)}\n\n![Foto](${own})` }),
+      "publish",
+    );
+    await service.create(input({ slug: "otro", coverImage: null, contentMarkdown: `![Reusada](${shared})` }), "draft");
+    await service.delete(post.id);
+    expect([...storage.objects.keys()]).toEqual(["blog/shared-1200x800.webp"]);
+  });
+
+  it("still deletes the post when image cleanup fails", async () => {
+    const failing = new FailingDeleteStorage(IMAGE_BASE);
+    const svc = serviceWith(failing);
+    const post = await svc.create(input({ coverImage: coverWith(await stored("blog/c-1200x800.webp", failing)) }), "publish");
+    await svc.delete(post.id);
+    await expect(svc.getById(post.id)).rejects.toBeInstanceOf(NotFoundError);
+    expect(failing.objects.size).toBe(1);
   });
 
   it("throws NotFoundError for unknown or malformed ids", async () => {

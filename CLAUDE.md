@@ -63,6 +63,7 @@ Self-hosted blog: MongoDB for posts, S3 for images, a single admin whose credent
 - Sessions are opaque random tokens stored as SHA-256 in `auth_sessions`; never store or log raw tokens, passwords, TOTP codes or raw IPs (use `pseudonymize`).
 - Markdown renders with `skipHtml`; only images from `NEXT_PUBLIC_IMAGE_BASE_URL` render. JSON-LD goes through `<JsonLd>` (escapes `<`).
 - Uploads are sniffed by magic bytes and re-encoded with sharp; keys are server-generated.
+- Deleting a post deletes only images no other post references (`PostService.delete`). The app's IAM user must never get `s3:DeleteObjectVersion`: bucket versioning is what keeps deletes recoverable.
 
 **Infra:** AWS resources (S3 bucket, upload-only IAM user) are Terraform in `infra/` — see `infra/README.md`. Always run `aws sts get-caller-identity --profile solaris` before plan/apply.
 

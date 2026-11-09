@@ -1,7 +1,9 @@
 import type { Clock } from "@/lib/contracts/auth";
 import type { Post, PostRepository, PostSummary } from "@/lib/contracts/blog";
+import type { ImageRemover } from "@/lib/contracts/images";
 import { ConflictError, NotFoundError, ValidationError } from "@/lib/errors";
 import { logger } from "@/lib/logger";
+import { postImageUrls, unreferencedImages } from "./postImages";
 import { POSTS_PER_PAGE } from "./rules";
 import { validatePost, type PostInput, type SaveIntent } from "./validation";
 
@@ -23,6 +25,7 @@ export class PostService {
     private readonly repo: PostRepository,
     private readonly clock: Clock,
     private readonly imageBaseUrl: string | null,
+    private readonly images: ImageRemover,
   ) {}
 
   async create(input: PostInput, intent: SaveIntent): Promise<Post> {
@@ -77,9 +80,26 @@ export class PostService {
     return updated;
   }
 
+  /**
+   * Deletes the post, then its images that no other post (draft or published)
+   * still uses. Image cleanup is best effort: the post is already gone, so a
+   * storage failure is logged with the keys to retry rather than surfaced.
+   */
   async delete(id: string): Promise<void> {
+    const post = await this.getById(id);
     if (!(await this.repo.delete(id))) throw new NotFoundError(`Post ${id} not found`);
     logger.info("blog.post.deleted", { postId: id });
+
+    const candidates = postImageUrls(post, this.imageBaseUrl);
+    if (candidates.length === 0) return;
+    try {
+      const others = await this.repo.findReferencingImages(candidates);
+      const orphans = unreferencedImages(candidates, others, this.imageBaseUrl);
+      await this.images.removeImages(orphans);
+      logger.info("blog.post.images_cleaned", { postId: id, deleted: orphans.length, kept: candidates.length - orphans.length });
+    } catch (err) {
+      logger.error("blog.post.image_cleanup_failed", { postId: id, urls: candidates, err });
+    }
   }
 
   async getById(id: string): Promise<Post> {

@@ -1,8 +1,19 @@
 # Infra (AWS)
 
-Blog image storage: one S3 bucket (public read on `blog/*` only) and one IAM
-user that can only create new objects under `blog/`. State is local and
-gitignored; it holds no secrets.
+Blog image storage: one versioned S3 bucket (public read on `blog/*` only) and
+one IAM user that can create new objects under `blog/` and delete them. Deletes
+only add delete markers; old versions are purged after
+`deleted_image_retention_days` (30). State is local and gitignored; it holds no
+secrets.
+
+## Restore a deleted image
+
+```bash
+aws s3api list-object-versions --bucket <bucket> --prefix blog/<key> --profile solaris
+aws s3api delete-object --bucket <bucket> --key blog/<key> --version-id <DELETE_MARKER_VERSION_ID> --profile solaris
+```
+
+Removing the delete marker makes the previous version current (and public) again.
 
 ## Apply
 
