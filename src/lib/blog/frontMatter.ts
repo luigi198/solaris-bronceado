@@ -12,7 +12,7 @@
  * without pulling in a YAML dependency.
  */
 
-export const FRONT_MATTER_KEYS = ["title", "slug", "description", "seoTitle"] as const;
+export const FRONT_MATTER_KEYS = ["title", "slug", "description", "seoTitle", "coverAlt"] as const;
 export type FrontMatterKey = (typeof FRONT_MATTER_KEYS)[number];
 export type FrontMatter = Partial<Record<FrontMatterKey, string>>;
 
@@ -34,6 +34,8 @@ const KEY_ALIASES: Readonly<Record<string, FrontMatterKey>> = {
   meta_title: "seoTitle",
   metadescription: "description",
   meta_description: "description",
+  coveralt: "coverAlt",
+  cover_alt: "coverAlt",
 };
 
 function unquote(value: string): string {

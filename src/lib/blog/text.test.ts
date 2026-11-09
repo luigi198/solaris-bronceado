@@ -33,6 +33,10 @@ describe("parseFrontMatter", () => {
     });
   });
 
+  it("reads the cover alt text under its aliases", () => {
+    expect(parseFrontMatter(`---\ncover_alt: Cabina de bronceado\n---\nTexto`).fields).toEqual({ coverAlt: "Cabina de bronceado" });
+  });
+
   it("returns the input untouched when there is no front matter", () => {
     expect(parseFrontMatter("## Hola\n---\nno")).toEqual({ fields: {}, body: "## Hola\n---\nno" });
   });

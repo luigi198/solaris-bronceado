@@ -13,7 +13,7 @@ export default defineConfig({
   },
   test: {
     environment: "node",
-    include: ["src/**/*.test.ts"],
+    include: ["src/**/*.test.ts", "scripts/**/*.test.ts"],
     // First run downloads a mongod binary for mongodb-memory-server.
     hookTimeout: 120_000,
     testTimeout: 20_000,
