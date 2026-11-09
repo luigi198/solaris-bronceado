@@ -16,3 +16,8 @@ export const SOCIAL = {
   instagram: "https://www.instagram.com/solariscentrodebronceado/",
   facebook: "https://www.facebook.com/solariscentrodebronceado",
 };
+
+export const SITE_URL = "https://solarisbronceado.com";
+export const SITE_NAME = "Solaris Bronceado";
+/** Dates are shown in the salon's local time, not the server's (UTC on Vercel). */
+export const SITE_TIME_ZONE = "America/Costa_Rica";

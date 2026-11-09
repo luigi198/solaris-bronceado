@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import WhatsAppFloat from "@/components/WhatsAppFloat";
-import MobileBookingBar from "@/components/MobileBookingBar";
-import { PHONE_INTL } from "@/lib/constants";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,6 +8,7 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://solarisbronceado.com"),
   title: {
     default: "Solaris Bronceado | Salón de Bronceado Profesional en Costa Rica",
     template: "%s | Solaris Bronceado",
@@ -47,60 +43,13 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://solarisbronceado.com" },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BeautySalon",
-  name: "Solaris Bronceado",
-  description:
-    "Salón de bronceado profesional en Costa Rica. Especialistas en bronceado brasileño, camas UV y tratamientos corporales.",
-  url: "https://solarisbronceado.com",
-  telephone: PHONE_INTL,
-  address: {
-    "@type": "PostalAddress",
-    addressCountry: "CR",
-    addressRegion: "San José",
-    addressLocality: "San José",
-  },
-  openingHoursSpecification: [
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-      opens: "10:00",
-      closes: "20:00",
-    },
-  ],
-  priceRange: "$$",
-};
-
+/** Shell shared by the public site `(site)` and the private `/admin` area. */
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es" className={`${geistSans.variable} h-full antialiased`}>
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </head>
-      <body className="min-h-full flex flex-col font-sans">
-        <Navbar />
-        {children}
-        <MobileBookingBar />
-        <WhatsAppFloat />
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-01W27QZDQL"
-          strategy="afterInteractive"
-        />
-        <Script id="ga4-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-01W27QZDQL');
-          `}
-        </Script>
-      </body>
+      <body className="min-h-full flex flex-col font-sans">{children}</body>
     </html>
   );
 }

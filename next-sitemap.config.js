@@ -1,11 +1,20 @@
 /** @type {import('next-sitemap').IConfig} */
+const SITE_URL = "https://solarisbronceado.com";
+
 module.exports = {
-  siteUrl: "https://solarisbronceado.com",
+  siteUrl: SITE_URL,
   generateRobotsTxt: true,
   changefreq: "weekly",
   priority: 1.0,
   autoLastmod: true,
-  // Home stays at 1.0; secondary routes (e.g. /blog) rank below it.
+  // /blog and its posts live in the dynamic /blog/sitemap.xml (src/app/(site)/blog/sitemap.ts),
+  // which updates on publish; the admin must never be listed.
+  exclude: ["/admin", "/admin/*", "/blog", "/blog/*"],
+  robotsTxtOptions: {
+    policies: [{ userAgent: "*", allow: "/", disallow: ["/admin"] }],
+    additionalSitemaps: [`${SITE_URL}/blog/sitemap.xml`],
+  },
+  // Home stays at 1.0; any other static route ranks below it.
   transform: async (config, path) => ({
     loc: path,
     changefreq: config.changefreq,
