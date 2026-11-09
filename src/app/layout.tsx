@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
+import { SITE_URL } from "@/lib/constants";
+import { DEFAULT_OPEN_GRAPH, DEFAULT_SHARE_IMAGE } from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -8,13 +10,13 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://solarisbronceado.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Solaris Bronceado | Salón de Bronceado Profesional en Costa Rica",
     template: "%s | Solaris Bronceado",
   },
   description:
-    "Especialistas en bronceado profesional en Costa Rica. Bronceado brasileño, camas UV y tratamientos corporales. Resultados dorados y naturales desde la primera sesión, sin sol ni rayos UV.",
+    "Salón de bronceado profesional en Costa Rica: bronceado brasileño, cámara de bronceado y spray tan. Tono dorado y natural desde la primera sesión.",
   keywords: [
     "bronceado Costa Rica",
     "bronceado brasileño Costa Rica",
@@ -25,22 +27,16 @@ export const metadata: Metadata = {
     "tanning Costa Rica",
     "spray tan Costa Rica",
   ],
-  openGraph: {
-    type: "website",
-    locale: "es_CR",
-    siteName: "Solaris Bronceado",
-    title: "Solaris Bronceado | Salón de Bronceado Profesional en Costa Rica",
-    description:
-      "Bronceado profesional en Costa Rica. Técnica brasileña, tono dorado natural desde la primera sesión.",
-  },
+  openGraph: DEFAULT_OPEN_GRAPH,
   twitter: {
     card: "summary_large_image",
     title: "Solaris Bronceado | Costa Rica",
     description:
       "Bronceado profesional brasileño y tratamientos corporales en Costa Rica.",
+    images: [DEFAULT_SHARE_IMAGE.url],
   },
-  robots: { index: true, follow: true },
-  alternates: { canonical: "https://solarisbronceado.com" },
+  // No root canonical/robots: they would leak into 404s and /admin. Each
+  // indexable page sets its own canonical; indexing is the default.
 };
 
 /** Shell shared by the public site `(site)` and the private `/admin` area. */

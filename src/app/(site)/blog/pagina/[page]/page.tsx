@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
+import { DEFAULT_OPEN_GRAPH } from "@/lib/seo";
 import { getPostService } from "@/lib/server/container";
 import { BlogIndex } from "../../_components/BlogIndex";
 import { BLOG_PATH, pagePath } from "../../_components/blogMeta";
@@ -22,10 +23,13 @@ function parsePage(raw: string): number {
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const page = parsePage((await params).page);
+  const title = `Blog de Bronceado — Página ${page}`;
+  const description = `Más guías de bronceado de Solaris Bronceado: preparación de la piel, técnicas, duración del color y cuidados posteriores. Página ${page} del blog.`;
   return {
-    title: `Blog de Bronceado — Página ${page}`,
-    description: `Más guías de bronceado de Solaris Bronceado: preparación de la piel, técnicas, duración del color y cuidados posteriores. Página ${page} del blog.`,
+    title,
+    description,
     alternates: { canonical: pagePath(page) },
+    openGraph: { ...DEFAULT_OPEN_GRAPH, url: pagePath(page), title: `${title} | Solaris Bronceado`, description },
     robots: { index: true, follow: true },
   };
 }

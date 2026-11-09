@@ -97,6 +97,9 @@ Blog URLs are excluded from `next-sitemap` and served instead by the dynamic `/b
 ## SEO
 
 - Every page must export a `metadata` object (or a `generateMetadata` function for dynamic pages) with at minimum `title` and `description`.
+- **Canonical origin is `https://www.solarisbronceado.com`** (Vercel's primary domain; the apex 308-redirects to it). Use `SITE_URL` from `src/lib/constants.ts`; `next-sitemap.config.js` keeps its own copy — change both together and never hard-code the domain.
+- Indexable pages set their own `alternates.canonical`; the root layout deliberately sets no canonical or robots (they would leak into 404s and `/admin`).
+- `openGraph` is merged shallowly: spread `DEFAULT_OPEN_GRAPH` from `src/lib/seo.ts` so pages keep the default share image (`public/og-default.png`).
 - Titles follow the pattern `Page Name | Site Name` using Next.js `metadata.title.template` set in the root layout.
 - `description` must be unique per page, 120–160 characters, and describe actual page content.
 - Use semantic HTML: one `<h1>` per page, logical heading hierarchy (`h2` → `h3`), landmark elements (`<main>`, `<nav>`, `<footer>`, `<article>`, `<section>`).

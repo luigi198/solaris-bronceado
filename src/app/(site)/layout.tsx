@@ -3,18 +3,23 @@ import { JsonLd } from "@/components/JsonLd";
 import Navbar from "@/components/Navbar";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import MobileBookingBar from "@/components/MobileBookingBar";
-import { PHONE_INTL } from "@/lib/constants";
+import { ADDRESS_VENUE, PHONE_INTL, SITE_NAME, SITE_URL, SOCIAL } from "@/lib/constants";
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "BeautySalon",
-  name: "Solaris Bronceado",
+  "@id": `${SITE_URL}/#salon`,
+  name: SITE_NAME,
   description:
     "Salón de bronceado profesional en Costa Rica. Especialistas en bronceado brasileño, camas UV y tratamientos corporales.",
-  url: "https://solarisbronceado.com",
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo.png`,
+  image: [`${SITE_URL}/image1.jpeg`, `${SITE_URL}/image2.jpeg`],
+  sameAs: Object.values(SOCIAL),
   telephone: PHONE_INTL,
   address: {
     "@type": "PostalAddress",
+    streetAddress: ADDRESS_VENUE.replace(" · ", ", "),
     addressCountry: "CR",
     addressRegion: "San José",
     addressLocality: "San José",

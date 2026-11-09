@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DEFAULT_OPEN_GRAPH, DEFAULT_SHARE_IMAGE } from "@/lib/seo";
 import { getPostService } from "@/lib/server/container";
 import { BlogIndex } from "./_components/BlogIndex";
 import { BLOG_DESCRIPTION, BLOG_PATH, BLOG_TITLE } from "./_components/blogMeta";
@@ -12,14 +13,17 @@ export const metadata: Metadata = {
   description: BLOG_DESCRIPTION,
   alternates: { canonical: BLOG_PATH },
   openGraph: {
-    type: "website",
-    locale: "es_CR",
-    siteName: "Solaris Bronceado",
+    ...DEFAULT_OPEN_GRAPH,
     url: BLOG_PATH,
     title: `${BLOG_TITLE} | Solaris Bronceado`,
     description: BLOG_DESCRIPTION,
   },
-  twitter: { card: "summary_large_image", title: `${BLOG_TITLE} | Solaris Bronceado`, description: BLOG_DESCRIPTION },
+  twitter: {
+    card: "summary_large_image",
+    title: `${BLOG_TITLE} | Solaris Bronceado`,
+    description: BLOG_DESCRIPTION,
+    images: [DEFAULT_SHARE_IMAGE.url],
+  },
   robots: { index: true, follow: true },
 };
 

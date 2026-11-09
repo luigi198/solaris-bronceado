@@ -44,7 +44,7 @@ export default function Hero() {
               id="hero-heading"
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-4 md:mb-6"
             >
-              Solaris
+              Solaris{" "}
               <span className="block text-brand-gold">El arte del bronceado perfecto</span>
             </h1>
 

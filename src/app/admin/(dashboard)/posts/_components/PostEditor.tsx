@@ -5,6 +5,7 @@ import { useActionState, useState } from "react";
 import { parseFrontMatter } from "@/lib/blog/frontMatter";
 import { POST_RULES } from "@/lib/blog/rules";
 import { slugify } from "@/lib/blog/slug";
+import { SITE_URL } from "@/lib/constants";
 import type { PostStatus } from "@/lib/contracts/blog";
 import { ui } from "../../../_components/ui";
 import { createPostAction, updatePostAction } from "../actions";
@@ -73,7 +74,7 @@ export function PostEditor({ postId, initial, initialStatus }: Props) {
             set("slug")(v);
           }}
           error={errors.slug}
-          hint={`solarisbronceado.com/blog/${values.slug || "…"}${postId && status === "published" ? " — si lo cambias, la URL anterior redirige a la nueva." : ""}`}
+          hint={`${SITE_URL.replace("https://", "")}/blog/${values.slug || "…"}${postId && status === "published" ? " — si lo cambias, la URL anterior redirige a la nueva." : ""}`}
         />
         <TextField
           name="description"
