@@ -9,6 +9,7 @@ Turns a topic into a **draft** post the user reviews in `/admin`. You never publ
 
 ## Flow
 
+0. **Topic.** If the user gave no topic, take the first `pending` row of `.blog-drafts/calendar.md` and use its keyword, angle and links. If that row lists a question for the owner, ask it before writing. After the upload succeeds, set that row's status to `drafted`.
 1. **Research.** Read `src/components/Services.tsx`, `FAQ.tsx`, `PreCare.tsx` and `src/lib/constants.ts` for what the salon actually offers. Then use WebSearch for the topic: prefer dermatology associations, health agencies and peer-reviewed sources over other salons' blogs. Note 2–4 sources worth citing.
 2. **Check for duplicates.** If a draft folder or an existing post already covers the topic, say so and propose a different angle instead.
 3. **Write** `.blog-drafts/<slug>/article.md` (format below).
@@ -46,6 +47,7 @@ The command rejects anything outside these limits **before** uploading, so get t
 **SEO**
 - Pick one primary keyword and 3–5 related terms. Put the primary in the title, the first 100 words, at least one `##`, and the description. Write naturally and don't stuff keywords.
 - Aim for 1,000–1,600 words. Answer search intent in the opening paragraph, then go deeper.
+- Write so AI assistants can quote you; in GA4 they send the visitors most likely to message on WhatsApp. That means one-sentence definitions ("El bronceado en spray es…"), concrete numbers that are true for this salon, tables, and FAQ answers that make sense on their own.
 - Internal links use relative paths: `/#servicios`, `/#proceso`, `/#faq`, `/#contacto`, and `/blog/<slug>` for related posts that exist. Include 2–4.
 - External links go only to the authoritative sources you used, cited inline.
 - **No WhatsApp or phone links in the body.** They wouldn't be tracked in GA4. The post page already ends with a tracked contact CTA. Close with a short paragraph that invites the reader to book and points to `/#contacto`.
