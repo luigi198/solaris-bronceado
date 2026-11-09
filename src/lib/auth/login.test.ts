@@ -7,6 +7,7 @@ import { hashPassword } from "./password";
 import { DEFAULT_LOGIN_POLICY, LoginRateLimiter } from "./rateLimit";
 import { SESSION_ABSOLUTE_TTL_MS, SESSION_IDLE_TTL_MS, SessionService } from "./session";
 import { base32Decode, generateTotpSecret, hotp, stepAt, TOTP_PERIOD_SECONDS } from "./totp";
+import { TrustedDeviceTokens } from "./trustedDevice";
 
 const getDb = setupTestDb();
 const PASSWORD = "a-long-and-unique-passphrase";
@@ -27,11 +28,13 @@ function setup() {
   const clock = fakeClock();
   const db = getDb();
   const sessions = new SessionService(new MongoSessionStore(db), clock.now);
+  const devices = new TrustedDeviceTokens("test-auth-secret-of-sufficient-length", clock.now);
   const login = new LoginService(
     credentials,
     new LoginRateLimiter(new MongoAttemptStore(db), clock.now),
     sessions,
     new MongoTotpStepStore(db),
+    devices,
     clock.now,
   );
   const codeNow = () => hotp(base32Decode(credentials.totpSecret), stepAt(clock.now()));
@@ -40,9 +43,10 @@ function setup() {
     password: PASSWORD,
     totpCode: codeNow(),
     clientPseudonym: "client-a",
+    deviceToken: undefined,
     ...overrides,
   });
-  return { clock, sessions, login, attempt };
+  return { clock, sessions, devices, login, attempt };
 }
 
 describe("LoginService", () => {
@@ -52,8 +56,9 @@ describe("LoginService", () => {
   });
 
   it("issues a valid session for correct credentials", async () => {
-    const session = await ctx.login.login(ctx.attempt());
+    const { session, device } = await ctx.login.login(ctx.attempt());
     expect(await ctx.sessions.validate(session.token)).toBe(true);
+    expect(ctx.devices.verify(device.token)).toBe(true);
   });
 
   it.each([
@@ -104,11 +109,43 @@ describe("LoginService", () => {
     await expect(ctx.login.login(ctx.attempt())).rejects.toBeInstanceOf(RateLimitedError);
   });
 
-  it("applies the global cap across many clients", async () => {
-    for (let i = 0; i < DEFAULT_LOGIN_POLICY.globalMaxAttempts; i++) {
+  async function exhaustGlobalCap(): Promise<void> {
+    for (let i = 0; i <= DEFAULT_LOGIN_POLICY.globalMaxAttempts; i++) {
       await ctx.login.login(ctx.attempt({ password: "wrong", clientPseudonym: `bot-${i}` })).catch(() => undefined);
     }
+  }
+
+  it("applies the global cap across many clients", async () => {
+    await exhaustGlobalCap();
     await expect(ctx.login.login(ctx.attempt({ clientPseudonym: "fresh" }))).rejects.toBeInstanceOf(
+      RateLimitedError,
+    );
+  });
+
+  it("lets a trusted device log in while the global cap is hit", async () => {
+    const { device } = await ctx.login.login(ctx.attempt());
+    ctx.clock.advance(PERIOD_MS); // new TOTP step
+    await exhaustGlobalCap();
+    await expect(
+      ctx.login.login(ctx.attempt({ clientPseudonym: "admin-new-ip", deviceToken: device.token })),
+    ).resolves.toBeDefined();
+  });
+
+  it("ignores forged device tokens under the global cap", async () => {
+    await exhaustGlobalCap();
+    const forged = `${ctx.clock.now() + MINUTE_MS}.${"A".repeat(43)}`;
+    await expect(
+      ctx.login.login(ctx.attempt({ clientPseudonym: "fresh", deviceToken: forged })),
+    ).rejects.toBeInstanceOf(RateLimitedError);
+  });
+
+  it("still applies per-client limits to trusted devices", async () => {
+    const { device } = await ctx.login.login(ctx.attempt());
+    ctx.clock.advance(PERIOD_MS);
+    for (let i = 0; i < DEFAULT_LOGIN_POLICY.clientMaxAttempts; i++) {
+      await ctx.login.login(ctx.attempt({ password: "wrong", deviceToken: device.token })).catch(() => undefined);
+    }
+    await expect(ctx.login.login(ctx.attempt({ deviceToken: device.token }))).rejects.toBeInstanceOf(
       RateLimitedError,
     );
   });

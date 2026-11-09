@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { parseFrontMatter } from "./frontMatter";
-import { readingTimeMinutes } from "./rules";
+import { countWords, readingTimeMinutes } from "./rules";
 import { isValidSlug, slugify, SLUG_MAX_LENGTH } from "./slug";
 
 describe("slugify", () => {
@@ -38,9 +38,16 @@ describe("parseFrontMatter", () => {
   });
 });
 
+describe("countWords", () => {
+  it("counts whitespace-separated words, ignoring extra whitespace", () => {
+    expect(countWords("  uno\n\ndos\ttres  ")).toBe(3);
+    expect(countWords("")).toBe(0);
+  });
+});
+
 describe("readingTimeMinutes", () => {
   it("rounds to at least one minute", () => {
-    expect(readingTimeMinutes("")).toBe(1);
-    expect(readingTimeMinutes("palabra ".repeat(1000))).toBe(5);
+    expect(readingTimeMinutes(0)).toBe(1);
+    expect(readingTimeMinutes(countWords("palabra ".repeat(1000)))).toBe(5);
   });
 });

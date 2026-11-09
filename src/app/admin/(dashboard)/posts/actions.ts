@@ -10,11 +10,16 @@ import { getImageService, getPostService } from "@/lib/server/container";
 import { parsePostForm } from "./parsePostForm";
 import type { SaveState, UploadResult } from "./types";
 
-/** Every public URL that can show post data. Invalidated lazily on next visit. */
+/**
+ * Every public URL that can show post data. Invalidated lazily on next visit.
+ * Dynamic routes must be addressed by their file path *including* the route
+ * group: Next's cache tags are "/(site)/blog/[slug]/page", so "/blog/[slug]"
+ * would silently match nothing.
+ */
 function revalidateBlog(): void {
   revalidatePath("/blog");
-  revalidatePath("/blog/[slug]", "page");
-  revalidatePath("/blog/pagina/[page]", "page");
+  revalidatePath("/(site)/blog/[slug]", "page");
+  revalidatePath("/(site)/blog/pagina/[page]", "page");
   revalidatePath("/blog/sitemap.xml");
 }
 

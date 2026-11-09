@@ -1,23 +1,35 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
+import type { PostStatus } from "@/lib/contracts/blog";
 import { ui } from "../../../_components/ui";
 import { deletePostAction, unpublishPostAction } from "../actions";
+import type { SaveState } from "../types";
+
+interface Props {
+  postId: string;
+  isPublished: boolean;
+  /**
+   * Reports the new status to the editor instead of refreshing the route, so
+   * unsaved edits in the form are kept.
+   */
+  onStatusChange: (status: PostStatus) => void;
+}
 
 /** Unpublish / delete. Deleting needs a second click instead of a blocking browser dialog. */
-export function DangerZone({ postId, isPublished }: { postId: string; isPublished: boolean }) {
-  const router = useRouter();
+export function DangerZone({ postId, isPublished, onStatusChange }: Props) {
   const [pending, startTransition] = useTransition();
   const [confirming, setConfirming] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
-  function run(action: () => Promise<{ kind: string; message?: string }>): void {
+  // Delete redirects to the post list on success, so only failures return here.
+  function run(action: () => Promise<SaveState>): void {
     setMessage(null);
     startTransition(async () => {
       const result = await action();
-      if (result.message) setMessage(result.message);
-      router.refresh();
+      if (result.kind === "idle") return;
+      setMessage(result.message);
+      if (result.kind === "saved") onStatusChange(result.status);
     });
   }
 

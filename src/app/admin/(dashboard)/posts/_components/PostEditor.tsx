@@ -30,7 +30,15 @@ export function PostEditor({ postId, initial, initialStatus }: Props) {
   // New posts derive the slug from the title until the slug is edited by hand.
   const [slugLocked, setSlugLocked] = useState(Boolean(postId));
 
-  const status = state.kind === "saved" ? state.status : initialStatus;
+  // Status changes from saves (useActionState) and from the danger zone. Synced
+  // during render when a new save result arrives, per React's guidance for
+  // deriving state from changing inputs.
+  const [status, setStatus] = useState(initialStatus);
+  const [handledState, setHandledState] = useState(state);
+  if (state !== handledState) {
+    setHandledState(state);
+    if (state.kind === "saved") setStatus(state.status);
+  }
   const liveSlug = state.kind === "saved" ? state.slug : initial.slug;
   const errors = state.kind === "error" ? state.fieldErrors : {};
   const set = (field: keyof EditorValues) => (value: string) => setValues((v) => ({ ...v, [field]: value }));
@@ -128,7 +136,7 @@ export function PostEditor({ postId, initial, initialStatus }: Props) {
         )}
       </div>
     </form>
-    {postId && <DangerZone postId={postId} isPublished={status === "published"} />}
+    {postId && <DangerZone postId={postId} isPublished={status === "published"} onStatusChange={setStatus} />}
     </>
   );
 }

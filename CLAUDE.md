@@ -58,6 +58,8 @@ Self-hosted blog: MongoDB for posts, S3 for images, a single admin whose credent
 **Security rules — do not weaken:**
 - Every admin page and Server Action calls `requireAdmin()` first. `src/proxy.ts` is only an optimistic cookie check.
 - Login order in `LoginService`: lock check → count attempt → verify username, password and TOTP unconditionally → burn TOTP step. Do not short-circuit.
+- A valid trusted-device cookie (`src/lib/auth/trustedDevice.ts`) exempts a browser from the *global* login cap only, so a distributed flood cannot lock the admin out. Never let it bypass per-client limits, the password or TOTP.
+- `revalidatePath` for dynamic blog routes must include the route group (`/(site)/blog/[slug]`), or it silently matches nothing.
 - Sessions are opaque random tokens stored as SHA-256 in `auth_sessions`; never store or log raw tokens, passwords, TOTP codes or raw IPs (use `pseudonymize`).
 - Markdown renders with `skipHtml`; only images from `NEXT_PUBLIC_IMAGE_BASE_URL` render. JSON-LD goes through `<JsonLd>` (escapes `<`).
 - Uploads are sniffed by magic bytes and re-encoded with sharp; keys are server-generated.

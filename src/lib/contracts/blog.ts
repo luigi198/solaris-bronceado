@@ -55,5 +55,7 @@ export interface PostRepository {
   isSlugTaken(slug: string, excludeId?: string): Promise<boolean>;
   listAll(): Promise<PostSummary[]>;
   listPublished(offset: number, limit: number): Promise<PublishedPage>;
+  /** Newest published posts without a total count. */
+  listRecentPublished(limit: number): Promise<PostSummary[]>;
   listPublishedSlugs(): Promise<Array<Pick<Post, "slug" | "updatedAt">>>;
 }

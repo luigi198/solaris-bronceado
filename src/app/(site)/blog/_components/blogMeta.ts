@@ -1,5 +1,5 @@
 import type { Post } from "@/lib/contracts/blog";
-import { SITE_NAME, SITE_URL } from "@/lib/constants";
+import { SITE_NAME, SITE_TIME_ZONE, SITE_URL } from "@/lib/constants";
 
 export const BLOG_PATH = "/blog";
 export const BLOG_URL = `${SITE_URL}${BLOG_PATH}`;
@@ -10,7 +10,12 @@ export const BLOG_DESCRIPTION =
 export const postPath = (slug: string) => `${BLOG_PATH}/${slug}`;
 export const pagePath = (page: number) => (page <= 1 ? BLOG_PATH : `${BLOG_PATH}/pagina/${page}`);
 
-const DATE_FORMAT = new Intl.DateTimeFormat("es-CR", { day: "numeric", month: "long", year: "numeric" });
+const DATE_FORMAT = new Intl.DateTimeFormat("es-CR", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  timeZone: SITE_TIME_ZONE,
+});
 export const formatDate = (date: Date) => DATE_FORMAT.format(date);
 
 const publisher = { "@type": "Organization", name: SITE_NAME, url: SITE_URL };

@@ -6,9 +6,7 @@ export type SaveState =
   | { kind: "error"; message: string; fieldErrors: FieldErrors }
   | { kind: "saved"; message: string; status: PostStatus; slug: string };
 
-export type UploadResult =
-  | { ok: true; url: string; width: number; height: number }
-  | { ok: false; error: string };
+export type { UploadResult } from "@/lib/images/uploadTypes";
 
 /** Serializable initial values handed from the server page to the editor. */
 export interface EditorValues {

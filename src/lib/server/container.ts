@@ -2,6 +2,7 @@ import "server-only";
 import { LoginService } from "@/lib/auth/login";
 import { LoginRateLimiter } from "@/lib/auth/rateLimit";
 import { SessionService } from "@/lib/auth/session";
+import { TrustedDeviceTokens } from "@/lib/auth/trustedDevice";
 import { PostService } from "@/lib/blog/postService";
 import type { Clock } from "@/lib/contracts/auth";
 import { ImageService } from "@/lib/images/imageService";
@@ -40,6 +41,7 @@ export async function getLoginService(): Promise<LoginService> {
     new LoginRateLimiter(new MongoAttemptStore(database), clock),
     new SessionService(new MongoSessionStore(database), clock),
     new MongoTotpStepStore(database),
+    new TrustedDeviceTokens(env.AUTH_SECRET, clock),
     clock,
   );
 }

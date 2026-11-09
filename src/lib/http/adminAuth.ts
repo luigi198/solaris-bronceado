@@ -5,7 +5,7 @@ import { cache } from "react";
 import { pseudonymize } from "@/lib/auth/digest";
 import { getAuthEnv } from "@/lib/server/env";
 import { getSessionService } from "@/lib/server/container";
-import { ADMIN_LOGIN_PATH, SESSION_COOKIE } from "./sessionCookie";
+import { ADMIN_LOGIN_PATH, DEVICE_COOKIE, SESSION_COOKIE } from "./sessionCookie";
 
 const UNKNOWN_CLIENT = "unknown";
 
@@ -19,14 +19,24 @@ export async function getClientPseudonym(): Promise<string> {
   return pseudonymize(getAuthEnv().AUTH_SECRET, ip);
 }
 
+const SECURE_COOKIE = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "strict",
+  path: "/",
+} as const;
+
 export async function setSessionCookie(token: string, expiresAt: Date): Promise<void> {
-  (await cookies()).set(SESSION_COOKIE, token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    path: "/",
-    expires: expiresAt,
-  });
+  (await cookies()).set(SESSION_COOKIE, token, { ...SECURE_COOKIE, expires: expiresAt });
+}
+
+/** Kept on logout on purpose: it is not a credential, only a global-cap exemption. */
+export async function setDeviceCookie(token: string, expiresAt: Date): Promise<void> {
+  (await cookies()).set(DEVICE_COOKIE, token, { ...SECURE_COOKIE, expires: expiresAt });
+}
+
+export async function readDeviceCookie(): Promise<string | undefined> {
+  return (await cookies()).get(DEVICE_COOKIE)?.value;
 }
 
 export async function readSessionCookie(): Promise<string | undefined> {

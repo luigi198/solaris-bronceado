@@ -1,4 +1,5 @@
 import Script from "next/script";
+import { JsonLd } from "@/components/JsonLd";
 import Navbar from "@/components/Navbar";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import MobileBookingBar from "@/components/MobileBookingBar";
@@ -33,7 +34,7 @@ const jsonLd = {
 export default function SiteLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
       <Navbar />
       {children}
       <MobileBookingBar />

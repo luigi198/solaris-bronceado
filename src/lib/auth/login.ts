@@ -6,6 +6,7 @@ import { verifyPassword } from "./password";
 import type { LoginRateLimiter } from "./rateLimit";
 import type { IssuedSession, SessionService } from "./session";
 import { findMatchingStep } from "./totp";
+import type { IssuedDeviceToken, TrustedDeviceTokens } from "./trustedDevice";
 
 export interface AdminCredentials {
   username: string;
@@ -19,11 +20,20 @@ export interface LoginAttempt {
   totpCode: string;
   /** Keyed pseudonym of the client IP — never the raw IP. */
   clientPseudonym: string;
+  /** Trusted-device cookie value, if the browser sent one. */
+  deviceToken: string | undefined;
+}
+
+export interface LoginResult {
+  session: IssuedSession;
+  /** Fresh trusted-device token for this browser (sliding 30-day expiry). */
+  device: IssuedDeviceToken;
 }
 
 /**
  * Single-admin login. Order matters:
- *   1. reject locked clients before doing any expensive work;
+ *   1. reject locked clients before doing any expensive work (trusted devices
+ *      skip only the global lock, never their own per-client lock);
  *   2. count the attempt before checking credentials (race-safe);
  *   3. evaluate username, password AND TOTP unconditionally so timing does not
  *      reveal which one was wrong;
@@ -35,14 +45,16 @@ export class LoginService {
     private readonly limiter: LoginRateLimiter,
     private readonly sessions: SessionService,
     private readonly totpSteps: TotpStepStore,
+    private readonly devices: TrustedDeviceTokens,
     private readonly clock: Clock,
   ) {}
 
   /** Throws InvalidCredentialsError or RateLimitedError. */
-  async login(attempt: LoginAttempt): Promise<IssuedSession> {
+  async login(attempt: LoginAttempt): Promise<LoginResult> {
     const client = attempt.clientPseudonym;
-    await this.limiter.assertNotLocked(client);
-    await this.limiter.registerAttempt(client);
+    const context = { clientPseudonym: client, trustedDevice: this.devices.verify(attempt.deviceToken) };
+    await this.limiter.assertNotLocked(context);
+    await this.limiter.registerAttempt(context);
 
     const usernameOk = safeEqual(attempt.username, this.credentials.username);
     const passwordOk = await verifyPassword(attempt.password, this.credentials.passwordHash);
@@ -59,7 +71,7 @@ export class LoginService {
 
     await this.limiter.registerSuccess(client);
     const session = await this.sessions.issue();
-    logger.info("auth.login.succeeded", { client });
-    return session;
+    logger.info("auth.login.succeeded", { client, trustedDevice: context.trustedDevice });
+    return { session, device: this.devices.issue() };
   }
 }

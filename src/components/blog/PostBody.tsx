@@ -9,9 +9,12 @@ import { IMAGE_BASE_URL } from "@/lib/images/publicConfig";
 const CONTENT_MAX_WIDTH_PX = 768;
 const IMAGE_SIZES = `(max-width: ${CONTENT_MAX_WIDTH_PX}px) 100vw, ${CONTENT_MAX_WIDTH_PX}px`;
 
+/** "//host/path" is protocol-relative, i.e. external, despite the leading slash. */
+const isInternalHref = (href: string) => (href.startsWith("/") && !href.startsWith("//")) || href.startsWith("#");
+
 const components: Components = {
   a({ href = "", children }) {
-    if (href.startsWith("/") || href.startsWith("#")) return <Link href={href}>{children}</Link>;
+    if (isInternalHref(href)) return <Link href={href}>{children}</Link>;
     return (
       <a href={href} target="_blank" rel="noopener noreferrer">
         {children}

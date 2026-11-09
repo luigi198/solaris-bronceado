@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useImageUpload } from "@/hooks/useImageUpload";
+import { UPLOAD_ACCEPT } from "@/lib/images/uploadTypes";
 import { POST_RULES } from "@/lib/blog/rules";
 import { parseOwnImageUrl } from "@/lib/images/imageUrl";
 import { IMAGE_BASE_URL } from "@/lib/images/publicConfig";
@@ -9,7 +10,6 @@ import { ui } from "../../../_components/ui";
 import { uploadImageAction } from "../actions";
 import { TextField } from "./TextField";
 
-const ACCEPT = "image/jpeg,image/png,image/webp";
 const PREVIEW_SIZES = "(max-width: 768px) 100vw, 480px";
 const FALLBACK_SIZE = { width: 480, height: 270 };
 
@@ -44,7 +44,7 @@ export function CoverImageField({ url, alt, onUrlChange, onAltChange, error, alt
           {pending ? "Subiendo…" : url ? "Cambiar imagen" : "Subir imagen"}
           <input
             type="file"
-            accept={ACCEPT}
+            accept={UPLOAD_ACCEPT}
             className="sr-only"
             disabled={pending}
             onChange={(e) => {

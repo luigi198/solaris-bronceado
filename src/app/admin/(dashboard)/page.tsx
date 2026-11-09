@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SITE_TIME_ZONE } from "@/lib/constants";
 import { requireAdmin } from "@/lib/http/adminAuth";
 import { getPostService } from "@/lib/server/container";
 import { ui } from "../_components/ui";
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
   description: "Lista de artículos del blog de Solaris Bronceado: borradores y publicados.",
 };
 
-const DATE = new Intl.DateTimeFormat("es-CR", { dateStyle: "medium", timeStyle: "short" });
+const DATE = new Intl.DateTimeFormat("es-CR", { dateStyle: "medium", timeStyle: "short", timeZone: SITE_TIME_ZONE });
 
 export default async function AdminPostsPage() {
   await requireAdmin();

@@ -6,7 +6,7 @@ import ContactCTA from "@/components/ContactCTA";
 import Footer from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { PostBody } from "@/components/blog/PostBody";
-import { readingTimeMinutes } from "@/lib/blog/rules";
+import { countWords, readingTimeMinutes } from "@/lib/blog/rules";
 import { isValidSlug } from "@/lib/blog/slug";
 import type { Post } from "@/lib/contracts/blog";
 import { getPostService } from "@/lib/server/container";
@@ -64,16 +64,18 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 
 export default async function BlogPostPage({ params }: { params: Promise<Params> }) {
   const post = await loadPost((await params).slug);
-  const { posts: latest } = await (await getPostService()).listPublished(1);
+  // One extra so the current post can be dropped and still leave RELATED_COUNT.
+  const latest = await (await getPostService()).listRecentPublished(RELATED_COUNT + 1);
   const related = latest.filter((p) => p.id !== post.id).slice(0, RELATED_COUNT);
-  const minutes = readingTimeMinutes(post.contentMarkdown);
-  const wordCount = post.contentMarkdown.split(/\s+/).filter(Boolean).length;
+  const wordCount = countWords(post.contentMarkdown);
+  const minutes = readingTimeMinutes(wordCount);
   const crumbs: Crumb[] = [
     { name: "Inicio", path: "/" },
     { name: "Blog", path: BLOG_PATH },
     { name: post.title, path: postPath(post.slug) },
   ];
-  const wasUpdated = post.publishedAt && post.updatedAt.toDateString() !== post.publishedAt.toDateString();
+  // Compared as displayed (Costa Rica calendar day), not in server UTC.
+  const wasUpdated = post.publishedAt && formatDate(post.updatedAt) !== formatDate(post.publishedAt);
 
   return (
     <>

@@ -32,8 +32,8 @@ export default async function EditPostPage({ params }: { params: Promise<{ id: s
   return (
     <>
       <h1 className="text-2xl font-bold text-brand-navy mb-6">Editar artículo</h1>
-      {/* key: remount with fresh state for another post or after (un)publishing */}
-      <PostEditor key={`${post.id}-${post.status}`} postId={post.id} initial={initial} initialStatus={post.status} />
+      {/* key: fresh editor state per post; status changes are handled inside so unsaved edits survive */}
+      <PostEditor key={post.id} postId={post.id} initial={initial} initialStatus={post.status} />
     </>
   );
 }

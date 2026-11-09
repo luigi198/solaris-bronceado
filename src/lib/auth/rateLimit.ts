@@ -34,6 +34,16 @@ export const DEFAULT_LOGIN_POLICY: LoginRateLimitPolicy = {
 const GLOBAL_KEY = "global";
 const clientKey = (pseudonym: string) => `client:${pseudonym}`;
 
+export interface AttemptContext {
+  clientPseudonym: string;
+  /**
+   * True for a browser holding a valid trusted-device token. It skips the
+   * global cap (so a distributed flood cannot lock the admin out) but never
+   * the per-client limits.
+   */
+  trustedDevice: boolean;
+}
+
 /**
  * Fixed-window login throttling with escalating per-client locks and a global
  * cap. Attempts are counted *before* credentials are checked, so concurrent
@@ -46,10 +56,11 @@ export class LoginRateLimiter {
     private readonly policy: LoginRateLimitPolicy = DEFAULT_LOGIN_POLICY,
   ) {}
 
-  /** Throws RateLimitedError if the client or the whole login is locked. */
-  async assertNotLocked(clientPseudonym: string): Promise<void> {
+  /** Throws RateLimitedError if the client or (for untrusted devices) the whole login is locked. */
+  async assertNotLocked({ clientPseudonym, trustedDevice }: AttemptContext): Promise<void> {
     const now = this.clock();
-    for (const key of [clientKey(clientPseudonym), GLOBAL_KEY]) {
+    const keys = trustedDevice ? [clientKey(clientPseudonym)] : [clientKey(clientPseudonym), GLOBAL_KEY];
+    for (const key of keys) {
       const lock = await this.store.getLock(key);
       if (lock && lock.lockedUntil.getTime() > now) {
         throw new RateLimitedError(lock.lockedUntil.getTime() - now);
@@ -58,12 +69,14 @@ export class LoginRateLimiter {
   }
 
   /** Counts one attempt; throws RateLimitedError (and locks) once over a limit. */
-  async registerAttempt(clientPseudonym: string): Promise<void> {
+  async registerAttempt({ clientPseudonym, trustedDevice }: AttemptContext): Promise<void> {
     const now = this.clock();
     const { policy } = this;
 
-    const clientCount = await this.increment(clientKey(clientPseudonym), policy.clientWindowMs, now);
-    const globalCount = await this.increment(GLOBAL_KEY, policy.globalWindowMs, now);
+    const [clientCount, globalCount] = await Promise.all([
+      this.increment(clientKey(clientPseudonym), policy.clientWindowMs, now),
+      trustedDevice ? Promise.resolve(0) : this.increment(GLOBAL_KEY, policy.globalWindowMs, now),
+    ]);
 
     if (clientCount > policy.clientMaxAttempts) {
       const key = clientKey(clientPseudonym);

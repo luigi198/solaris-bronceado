@@ -3,11 +3,11 @@
 import { useRef, useState } from "react";
 import { PostBody } from "@/components/blog/PostBody";
 import { useImageUpload } from "@/hooks/useImageUpload";
+import { UPLOAD_ACCEPT } from "@/lib/images/uploadTypes";
 import { POST_RULES } from "@/lib/blog/rules";
 import { ui } from "../../../_components/ui";
 import { uploadImageAction } from "../actions";
 
-const ACCEPT = "image/jpeg,image/png,image/webp";
 const EDITOR_ROWS = 24;
 
 interface Props {
@@ -24,11 +24,16 @@ export function MarkdownField({ value, onChange, onImportFrontMatter, error }: P
   const { upload, pending, error: uploadError } = useImageUpload(uploadImageAction);
   const hasFrontMatter = value.trimStart().startsWith("---");
 
+  /**
+   * Runs when an upload finishes, possibly seconds after it started, so it reads
+   * the textarea's live text and cursor: text typed meanwhile must survive.
+   */
   function insertAtCursor(snippet: string): void {
     const el = textarea.current;
-    const start = el?.selectionStart ?? value.length;
-    const end = el?.selectionEnd ?? value.length;
-    onChange(`${value.slice(0, start)}${snippet}${value.slice(end)}`);
+    const current = el?.value ?? value;
+    const start = el?.selectionStart ?? current.length;
+    const end = el?.selectionEnd ?? current.length;
+    onChange(`${current.slice(0, start)}${snippet}${current.slice(end)}`);
   }
 
   const tabClass = (active: boolean) =>
@@ -55,7 +60,7 @@ export function MarkdownField({ value, onChange, onImportFrontMatter, error }: P
             {pending ? "Subiendo…" : "Insertar imagen"}
             <input
               type="file"
-              accept={ACCEPT}
+              accept={UPLOAD_ACCEPT}
               className="sr-only"
               disabled={pending}
               onChange={(e) => {

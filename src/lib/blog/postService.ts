@@ -44,8 +44,9 @@ export class PostService {
   }
 
   async update(id: string, input: PostInput, intent: SaveIntent): Promise<Post> {
-    this.assertValid(input, intent);
     const existing = await this.getById(id);
+    // A published post stays published on save, so it must always meet publish rules.
+    this.assertValid(input, existing.status === "published" ? "publish" : intent);
     if (input.slug !== existing.slug) await this.assertSlugFree(input.slug, id);
 
     const now = new Date(this.clock());
@@ -105,6 +106,10 @@ export class PostService {
     const offset = (page - 1) * POSTS_PER_PAGE;
     const { posts, total } = await this.repo.listPublished(offset, POSTS_PER_PAGE);
     return { posts, page, totalPages: Math.max(1, Math.ceil(total / POSTS_PER_PAGE)) };
+  }
+
+  listRecentPublished(limit: number): Promise<PostSummary[]> {
+    return this.repo.listRecentPublished(limit);
   }
 
   listPublishedSlugs(): Promise<Array<Pick<Post, "slug" | "updatedAt">>> {

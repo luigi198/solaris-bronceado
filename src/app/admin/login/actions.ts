@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { InvalidCredentialsError, RateLimitedError } from "@/lib/errors";
-import { getClientPseudonym, setSessionCookie } from "@/lib/http/adminAuth";
+import { getClientPseudonym, readDeviceCookie, setDeviceCookie, setSessionCookie } from "@/lib/http/adminAuth";
 import { logger } from "@/lib/logger";
 import { getLoginService } from "@/lib/server/container";
 
@@ -42,13 +42,15 @@ export async function loginAction(_prev: LoginState, formData: FormData): Promis
 
   try {
     const login = await getLoginService();
-    const session = await login.login({
+    const { session, device } = await login.login({
       username: parsed.data.username,
       password: parsed.data.password,
       totpCode: parsed.data.totp,
       clientPseudonym: await getClientPseudonym(),
+      deviceToken: await readDeviceCookie(),
     });
     await setSessionCookie(session.token, session.expiresAt);
+    await setDeviceCookie(device.token, device.expiresAt);
   } catch (err) {
     await padFailure(startedAt);
     if (err instanceof InvalidCredentialsError) return { error: GENERIC_ERROR };

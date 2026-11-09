@@ -3,12 +3,7 @@ import type { ImageStorage } from "@/lib/contracts/images";
 import { logger } from "@/lib/logger";
 import { buildImageKey } from "./imageUrl";
 import { processImage } from "./processImage";
-
-export interface UploadedImage {
-  url: string;
-  width: number;
-  height: number;
-}
+import type { UploadedImage } from "./uploadTypes";
 
 export class ImageService {
   constructor(private readonly storage: ImageStorage) {}

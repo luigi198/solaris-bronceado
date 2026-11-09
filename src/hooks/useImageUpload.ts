@@ -1,16 +1,9 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import type { UploadedImage, UploadResult } from "@/lib/images/uploadTypes";
 
-export type ImageUploader = (formData: FormData) => Promise<
-  { ok: true; url: string; width: number; height: number } | { ok: false; error: string }
->;
-
-export interface UploadedImage {
-  url: string;
-  width: number;
-  height: number;
-}
+export type ImageUploader = (formData: FormData) => Promise<UploadResult>;
 
 /** Wraps an upload Server Action with pending/error state for file inputs. */
 export function useImageUpload(uploader: ImageUploader) {

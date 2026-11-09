@@ -11,7 +11,11 @@ export const POST_RULES = {
 export const POSTS_PER_PAGE = 12;
 const WORDS_PER_MINUTE = 200;
 
-export function readingTimeMinutes(markdown: string): number {
-  const words = markdown.split(/\s+/).filter(Boolean).length;
-  return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
+/** Single source for word counting: reading time and JSON-LD wordCount must agree. O(n). */
+export function countWords(markdown: string): number {
+  return markdown.split(/\s+/).filter(Boolean).length;
+}
+
+export function readingTimeMinutes(wordCount: number): number {
+  return Math.max(1, Math.round(wordCount / WORDS_PER_MINUTE));
 }

@@ -127,6 +127,15 @@ export class MongoPostRepository implements PostRepository {
     return { posts: docs.map(toSummary), total };
   }
 
+  async listRecentPublished(limit: number): Promise<PostSummary[]> {
+    const docs = await this.posts
+      .find(PUBLISHED, { projection: SUMMARY_PROJECTION })
+      .sort({ publishedAt: -1 })
+      .limit(limit)
+      .toArray();
+    return docs.map(toSummary);
+  }
+
   async listPublishedSlugs(): Promise<Array<Pick<Post, "slug" | "updatedAt">>> {
     return this.posts
       .find(PUBLISHED, { projection: { _id: 0, slug: 1, updatedAt: 1 } })

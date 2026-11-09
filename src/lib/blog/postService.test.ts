@@ -91,6 +91,28 @@ describe("PostService", () => {
     expect(updated.updatedAt.getTime()).toBe(clock.now());
   });
 
+  it("applies publish rules when a published post is saved as a draft", async () => {
+    const post = await service.create(input(), "publish");
+    const errors = await fieldErrors(service.update(post.id, input({ description: "", coverImage: null }), "draft"));
+    expect(Object.keys(errors).sort()).toEqual(["coverImage", "description"]);
+    expect((await service.getById(post.id)).description).toBe(post.description);
+  });
+
+  it("still allows incomplete saves of an unpublished draft", async () => {
+    const draft = await service.create(input(), "draft");
+    await expect(service.update(draft.id, input({ description: "" }), "draft")).resolves.toMatchObject({ status: "draft" });
+  });
+
+  it("lists recent published posts without drafts, newest first", async () => {
+    clock.advance(1000);
+    await service.create(input({ slug: "viejo" }), "publish");
+    clock.advance(1000);
+    await service.create(input({ slug: "nuevo" }), "publish");
+    await service.create(input({ slug: "borrador" }), "draft");
+    expect((await service.listRecentPublished(5)).map((p) => p.slug)).toEqual(["nuevo", "viejo"]);
+    expect(await service.listRecentPublished(1)).toHaveLength(1);
+  });
+
   it("unpublishes and deletes", async () => {
     const post = await service.create(input(), "publish");
     await service.unpublish(post.id);
