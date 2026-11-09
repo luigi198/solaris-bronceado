@@ -1,4 +1,3 @@
-import sharp from "sharp";
 import { ValidationError } from "@/lib/errors";
 
 /** Stays under Vercel's 4.5 MB function request-body limit with form overhead. */
@@ -9,6 +8,15 @@ const MAX_INPUT_PIXELS = 40_000_000;
 const WEBP_QUALITY = 82;
 
 type Format = "jpeg" | "png" | "webp";
+
+/**
+ * sharp is a native module (libvips). Loading it lazily keeps every route that
+ * merely imports the composition root (blog pages, login) independent of it:
+ * a missing or broken native binary can only fail an upload, never the site.
+ */
+async function loadSharp() {
+  return (await import("sharp")).default;
+}
 
 export interface ProcessedImage {
   data: Buffer;
@@ -44,7 +52,7 @@ export async function processImage(bytes: Buffer): Promise<ProcessedImage> {
   }
 
   try {
-    const { data, info } = await sharp(bytes, { limitInputPixels: MAX_INPUT_PIXELS, failOn: "error" })
+    const { data, info } = await (await loadSharp())(bytes, { limitInputPixels: MAX_INPUT_PIXELS, failOn: "error" })
       .rotate() // apply EXIF orientation before the metadata is dropped
       .resize({ width: MAX_OUTPUT_WIDTH, withoutEnlargement: true })
       .webp({ quality: WEBP_QUALITY })

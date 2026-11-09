@@ -35,8 +35,23 @@ const ADMIN_HEADERS = [
   { key: "Cache-Control", value: "no-store" },
 ];
 
+/**
+ * sharp loads libvips (a shared library) at runtime, which file tracing does
+ * not follow, so Vercel functions crashed with "libvips-cpp.so: cannot open
+ * shared object file". Only admin routes run image uploads (Server Actions
+ * execute in the page's function). Vercel runs linux-x64 (glibc).
+ */
+const SHARP_NATIVE_FILES = [
+  "./node_modules/sharp/**/*",
+  "./node_modules/@img/sharp-linux-x64/**/*",
+  "./node_modules/@img/sharp-libvips-linux-x64/**/*",
+];
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  outputFileTracingIncludes: {
+    "/admin/**": SHARP_NATIVE_FILES,
+  },
   images: {
     remotePatterns: imageBase
       ? [{ protocol: "https", hostname: imageBase.hostname, pathname: "/blog/**" }]
