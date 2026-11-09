@@ -16,3 +16,6 @@ export const SOCIAL = {
   instagram: "https://www.instagram.com/solariscentrodebronceado/",
   facebook: "https://www.facebook.com/solariscentrodebronceado",
 };
+
+export const SITE_URL = "https://solarisbronceado.com";
+export const SITE_NAME = "Solaris Bronceado";

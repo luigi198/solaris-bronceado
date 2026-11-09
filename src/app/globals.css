@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /* ─── Brand palette — update these variables to rebrand the entire site ─── */
 @theme {

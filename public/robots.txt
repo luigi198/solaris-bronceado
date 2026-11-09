@@ -1,9 +1,11 @@
 # *
 User-agent: *
 Allow: /
+Disallow: /admin
 
 # Host
 Host: https://solarisbronceado.com
 
 # Sitemaps
 Sitemap: https://solarisbronceado.com/sitemap.xml
+Sitemap: https://solarisbronceado.com/blog/sitemap.xml
