@@ -1,6 +1,6 @@
 ---
 name: blog-draft
-description: Research a topic and prepare a Solaris Bronceado blog post (SEO-optimized Spanish article + AI image prompt), then upload it as an unpublished draft once the user drops the cover image in the folder. Use when the user says "/blog-draft <tema>", "haz un post sobre…", or asks for a new blog article.
+description: Research a topic and prepare a Solaris Bronceado blog post (SEO-optimized Spanish article + AI image brief), then upload it as an unpublished draft once the user drops the cover image in the folder. Use when the user says "/blog-draft <tema>", "haz un post sobre…", or asks for a new blog article.
 ---
 
 # Blog draft
@@ -13,9 +13,10 @@ Turns a topic into a **draft** post the user reviews in `/admin`. You never publ
 1. **Research.** Read `src/components/Services.tsx`, `FAQ.tsx`, `PreCare.tsx` and `src/lib/constants.ts` for what the salon actually offers. Then use WebSearch for the topic: prefer dermatology associations, health agencies and peer-reviewed sources over other salons' blogs. Note 2–4 sources worth citing.
 2. **Check for duplicates.** If a draft folder or an existing post already covers the topic, say so and propose a different angle instead.
 3. **Write** `.blog-drafts/<slug>/article.md` (format below).
-4. **Hand off the image.** Give the user the image prompt (rules below) and the exact path: `.blog-drafts/<slug>/cover.png` (`.jpg`/`.webp` also work). Then **stop and wait** for them to say it's there.
-5. **Upload.** Run `npm run blog:draft -- .blog-drafts/<slug>`. If it reports field errors, fix `article.md` and re-run. If it fails because `.env.blog-draft` is missing, tell the user to create it from the `.env.example` notes. Never print or ask for credential values.
-6. **Report** the admin link the command prints, plus a short summary: target keyword, word count, and any claims the user should double-check.
+4. **Write the image prompt.** Re-read the finished article and write `.blog-drafts/<slug>/image-prompt.md`, holding only the paste-ready prompt (rules below). Then make `coverAlt` in `article.md` describe that scene.
+5. **Hand off the image.** Show the user the prompt in one code block, the exact path for the image (`.blog-drafts/<slug>/cover.png`; `.jpg`/`.webp` also work), and the checklist below. Then **stop and wait** for them to say it's there. Never create a placeholder or code-drawn image under the cover's filename.
+6. **Upload.** Run `npm run blog:draft -- .blog-drafts/<slug>`. If it reports field errors, fix `article.md` and re-run. If it fails because `.env.blog-draft` is missing, tell the user to create it from the `.env.example` notes. Never print or ask for credential values.
+7. **Report** the admin link the command prints, plus a short summary: target keyword, word count, and any claims the user should double-check.
 
 ## article.md format
 
@@ -59,13 +60,22 @@ The command rejects anything outside these limits **before** uploading, so get t
 - No unverifiable superlatives ("el mejor de Costa Rica") and no fear-based selling.
 - Content is for adults. Don't target minors.
 
-## Image prompt rules
+## Image prompt (`image-prompt.md`)
 
-Give the user one ready-to-paste prompt, in English, that asks for:
-- A **16:9** photorealistic image, at least 1600×900. The blog cards crop to 16:9.
-- **No text, letters, logos or watermarks.**
-- No identifiable faces (show people from behind, cropped, or as silhouettes), and no before/after skin comparisons.
-- The brand mood: warm golden light, soft cream backgrounds, accents of deep navy blue (#1e4a99) and sunny orange (#f5a520), clean and premium spa aesthetic.
-- A subject that matches the article.
+The user pastes the prompt into a tool that **can generate images**, such as ChatGPT or Gemini with image generation. Plain Claude chat cannot, and will only redescribe the prompt. Say this in the handoff.
 
-Also remind the user that the file must be **under 4 MB**. If it isn't, they can save it as JPG.
+Image models respond best to one dense descriptive paragraph, so the file holds **only the prompt**, with no headings, bullets or Markdown:
+- **English, one paragraph, about 120–180 words.** Start with "Photorealistic editorial photograph, 16:9 landscape."
+- **Take the scene from the article, not the topic.** Choose the one moment that best shows the article's main promise, e.g. the application step in a how-to, the two options side by side in a comparison, or the prep ritual in a preparation guide. Use details the article mentions (the salon's equipment, products, steps and setting). Avoid generic stock scenes like a woman on a beach.
+- **Describe only what is in the frame:** subject, action, props, setting, camera angle, framing and depth of field. Leave out the article's purpose, audience and the salon's facts (durations, prices). The model can't use them and may render them as text.
+- **Use color names, not hex codes:** "deep navy blue" and "warm sunny orange". Hex codes don't help the model, and a `#` at the start of a line turns into a Markdown heading when pasted.
+- **Avoid digits and quoted phrases**, because models tend to render them as text. Write distances in words ("a hand's width away").
+- **State the constraints positively in the scene itself**, because long "do not" lists backfire: "shown from behind, cropped at the neck", "the technician's face is out of frame", "a clearly adult woman", "all surfaces, bottles and devices are plain and blank, with no writing anywhere". Keep it to people shown from behind or cropped, adults only, no before/after comparisons and no sunburn.
+- **Always include the brand mood:** warm golden light, soft cream backgrounds, deep navy blue and warm sunny orange accents, a clean premium spa feel, and natural skin texture.
+- **Put the main subject in the center** so card crops don't cut it ("main subject centered with generous margins").
+
+**Checklist for the user** (put it in the handoff, not in the prompt). Before saving, check that:
+1. There is no text, letters or logos anywhere, including on bottles and devices.
+2. No face is identifiable, and every person clearly looks like an adult.
+3. The main subject survives a crop of the edges.
+4. The file is under 4 MB; if it isn't, save it as JPG.
